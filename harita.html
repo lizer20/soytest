@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Harita — Türkiye Siyasi Partileri Soyağacı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Genel ve yerel seçimlerde hangi partinin hangi ilde birinci çıktığı, referandumlarda illerin evet ya da hayır dediği, Türkiye haritası üzerinde.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Harita — Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:description" content="Seçimlerde il il kazanan partiler, Türkiye haritası üzerinde.">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:url" content="https://emrebiltekin.me/soyagaci/harita.html">
+<meta property="og:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-harita.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Türkiye haritası: illerde birinci çıkan partiler">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Harita — Türkiye Siyasi Partileri Soyağacı">
+<meta name="twitter:description" content="Seçimlerde il il kazanan partiler, Türkiye haritası üzerinde.">
+<meta name="twitter:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-harita.png">
+<link rel="canonical" href="https://emrebiltekin.me/soyagaci/harita.html">
+<link rel="icon" href="paylasim/simge.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="paylasim/simge-180.png">
+<meta name="theme-color" content="#151810">
+<link rel="stylesheet" href="ortak.css">
+<link rel="stylesheet" href="harita.css">
+
+<nav class="ustmenu">
+  <div class="ustmenu-ic">
+    <a href="index.html" class="ustmenu-link">Ana sayfa</a>
+    <a href="sandik.html" class="ustmenu-link">Sandık</a>
+    <a href="harita.html" class="ustmenu-link aktif">Harita</a>
+    <a href="kaynakca.html" class="ustmenu-link">Kaynakça<span class="uzun"> &amp; metodoloji</span></a>
+  </div>
+</nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">genel ve yerel seçimler, referandumlar · il il</div>
+    <h1>Harita<br><em>hangi il kime gitti</em></h1>
+    <p class="lede">Genel seçimlerde her ilde en çok oyu alan parti; yerel seçimlerde il merkezinin (büyükşehirlerde
+      büyükşehir belediyesinin) başkanlığını kazanan parti; referandumlarda ilde evet ya da hayır oyunun oranı.</p>
+    <p class="disclaimer">İl sonuçları YSK ve TÜİK'in (eski adıyla DİE) resmî tablolarından alınmıştır. Seçim tarihinde henüz
+      kurulmamış iller taralı gösterilir; sonucu bulunamayan iller boş bırakılır, tahmin yapılmaz.</p>
+  </header>
+
+  <div class="araclar h-araclar">
+    <div class="turlar" role="group" aria-label="Seçim türü">
+      <button type="button" class="tur-dugme" data-tur="genel" aria-pressed="true">Genel seçim</button>
+      <button type="button" class="tur-dugme" data-tur="yerel" aria-pressed="false">Yerel seçim</button>
+      <button type="button" class="tur-dugme" data-tur="referandum" aria-pressed="false">Referandum</button>
+    </div>
+    <div class="h-secim">
+      <button type="button" class="temizle-buton" id="hOnceki" aria-label="Önceki seçim">‹</button>
+      <label class="gizli" for="hSecim">Seçim</label>
+      <select id="hSecim"></select>
+      <button type="button" class="temizle-buton" id="hSonraki" aria-label="Sonraki seçim">›</button>
+    </div>
+  </div>
+
+  <section class="h-sahne" aria-live="polite">
+    <div class="h-baslik" id="hBaslik"></div>
+    <div class="h-duzen">
+      <div><div class="h-cizim" id="hCizim"></div>
+        <div class="h-secili" id="hSecili"></div></div>
+      <div class="h-yan" id="hYan"></div>
+    </div>
+    <details class="h-ayrinti">
+      <summary>İl il sonuç tablosu</summary>
+      <div id="hTablo"></div>
+    </details>
+  </section>
+
+  <footer>
+    <p><b>Okuma notu.</b> Renkler parti ailelerinin renkleridir; aynı aileden birden fazla parti il
+      kazandığında en çok il kazanan ailenin rengini, diğerleri aynı rengin açık ya da koyu tonunu alır.
+      Bir ile dokununca ya da üzerine gelince il sonucu haritanın altında görünür. Referandum haritalarında mavi tonlar “evet”in, turuncu tonlar “hayır”ın çoğunlukta olduğu illeri gösterir; ton, çoğunluğun oranı arttıkça koyulaşır.</p>
+    <p><b>Ölçüler ve kaynaklar.</b> <a href="kaynakca.html#harita">kaynakça &amp; metodoloji</a> ·
+      il sınırları: Natural Earth (kamu malı).</p>
+  </footer>
+</div>
+
+<script src="veri/partiler.js"></script>
+<script src="veri/sandik.js"></script>
+<script src="veri/iller.js"></script>
+<script src="veri/il-sonuclari.js"></script>
+<script src="ortak.js"></script>
+<script src="sandik-mantik.js"></script>
+<script src="harita-mantik.js"></script>
+<script src="harita-sayfa.js"></script>

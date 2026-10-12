@@ -1,0 +1,6 @@
+# Claude Code kişisel ayarları
+.claude/settings.local.json
+
+# Alt ajan yürütme çalışma alanı (.superpowers/) bilinçli olarak depoya dahildir:
+# ilerleme defteri, görev brief'leri, uygulayıcı raporları ve inceleme hükümleri
+# işin denetlenebilir kaydıdır.

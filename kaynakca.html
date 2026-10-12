@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Kaynakça &amp; Metodoloji — Türkiye Siyasi Partileri Soyağacı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Türkiye siyasi partileri soyağacının hangi kurallarla çizildiği, kapsamının nerede durduğu ve bağlantıların nasıl doğrulandığı.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaynakça &amp; metodoloji — Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:description" content="Şemanın hangi kurallarla çizildiği, kapsamının nerede durduğu ve bağlantıların nasıl doğrulandığı.">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:url" content="https://emrebiltekin.me/soyagaci/kaynakca.html">
+<meta property="og:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-soyagaci.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Türkiye siyasi partilerinin soyağacı şeması">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kaynakça &amp; metodoloji — Türkiye Siyasi Partileri Soyağacı">
+<meta name="twitter:description" content="Şemanın hangi kurallarla çizildiği, kapsamının nerede durduğu ve bağlantıların nasıl doğrulandığı.">
+<meta name="twitter:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-soyagaci.png">
+<link rel="canonical" href="https://emrebiltekin.me/soyagaci/kaynakca.html">
+<link rel="icon" href="paylasim/simge.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="paylasim/simge-180.png">
+<meta name="theme-color" content="#151810">
+<link rel="stylesheet" href="ortak.css">
+<style>
+  /* Bu sayfaya özel stiller. Fontlar, tasarım tokenları, üst menü ve temel tipografi ortak.css içinde. */
+  main{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:minmax(0,68ch) minmax(0,1fr);column-gap:56px}
+  section{grid-column:1;max-width:68ch;margin:0 0 38px;scroll-margin-top:16px}
+
+  /* içindekiler: masaüstünde sağda sabit, dar ekranda başta */
+  .icindekiler{grid-column:2;grid-row:1 / span 30;align-self:start;position:sticky;top:18px;
+    max-width:250px;padding:2px 0 2px 16px;border-left:1px solid var(--cizgi)}
+  .ic-et{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--soluk);margin-bottom:8px}
+  .icindekiler ol{list-style:none;margin:0;padding:0}
+  .icindekiler li{margin:0 0 6px;font-size:13px;line-height:1.35}
+  .icindekiler a{color:#3A3E32;text-decoration:none}
+  .icindekiler a:hover{color:var(--murekkep);text-decoration:underline;text-decoration-color:var(--cizgi);text-underline-offset:3px}
+  @media (max-width:980px){
+    main{display:block}
+    .icindekiler{position:static;max-width:none;margin:0 0 30px;padding:12px 14px;border:1px solid var(--cizgi);background:var(--kart)}
+    .icindekiler ol{columns:2;column-gap:24px}
+  }
+  @media (max-width:560px){ .icindekiler ol{columns:1} .icindekiler li{margin-bottom:9px} }
+  section h2{
+    font-family:"Fraunces",serif;font-weight:700;font-size:19px;
+    margin:0 0 12px;letter-spacing:-.01em;color:var(--murekkep);
+  }
+  section p{font-size:14px;line-height:1.65;margin:0 0 12px;color:#2A2E22}
+  section ul{margin:0 0 12px;padding-left:20px}
+  section li{font-size:14px;line-height:1.6;color:#2A2E22;margin-bottom:6px}
+  section a{
+    color:var(--murekkep);text-decoration-color:var(--cizgi);text-underline-offset:3px;
+  }
+  section a:hover{text-decoration-color:currentColor}
+
+  .terim{
+    display:grid;grid-template-columns:120px 1fr;gap:7px 16px;margin:0 0 14px;
+    padding:14px 16px;background:var(--kart);border:1px solid var(--cizgi);
+  }
+  .terim dt{
+    font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:12px;
+    letter-spacing:.03em;color:var(--murekkep);
+  }
+  .terim dd{margin:0;font-size:13px;line-height:1.5;color:#2A2E22}
+
+  .ilke{
+    border-left:2px solid var(--cizgi);padding-left:14px;font-size:13.5px;
+    line-height:1.6;color:var(--soluk);margin:0 0 14px;
+  }
+
+  .kaynak-liste{list-style:none;padding:0;margin:0}
+  .kaynak-liste li{
+    padding:10px 0;border-bottom:1px solid var(--cizgi);
+    font-size:13.5px;line-height:1.55;color:#2A2E22;
+  }
+  .kaynak-liste li:first-child{padding-top:0}
+  .kaynak-liste b{
+    display:block;font-family:"IBM Plex Mono",monospace;font-weight:600;
+    font-size:11.5px;letter-spacing:.04em;color:var(--murekkep);margin-bottom:3px;
+  }
+</style>
+
+<nav class="ustmenu">
+  <div class="ustmenu-ic">
+    <a href="index.html" class="ustmenu-link">Ana sayfa</a>
+    <a href="sandik.html" class="ustmenu-link">Sandık</a>
+    <a href="harita.html" class="ustmenu-link">Harita</a>
+    <a href="kaynakca.html" class="ustmenu-link aktif">Kaynakça<span class="uzun"> &amp; metodoloji</span></a>
+  </div>
+</nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">metodoloji · kapsam · doğrulama</div>
+    <h1>Kaynakça<br><em>&amp; metodoloji</em></h1>
+    <p class="lede">Bu sayfa parti başına bir kaynakça/dipnot listesi değildir. Şemanın hangi
+      kurallarla çizildiğini, kapsamının nerede durduğunu ve bu tür bilgilerin genel olarak
+      hangi kurumsal kayıtlarla doğrulanabileceğini anlatır.</p>
+  </header>
+
+  <main>
+    <nav class="icindekiler" aria-label="İçindekiler">
+      <div class="ic-et">bu sayfada</div>
+      <ol>
+        <li><a href="#siniflandirma">Sınıflandırma ilkesi</a></li>
+        <li><a href="#baglantilar">Bağlantı türleri</a></li>
+        <li><a href="#rozetler">Durum rozetleri</a></li>
+        <li><a href="#yerlestirme">Yerleştirme kuralları</a></li>
+        <li><a href="#kapsam">Kapsam ve sınırlar</a></li>
+        <li><a href="#sandik">Sandık: ölçüler ve kurallar</a></li>
+        <li><a href="#harita">Harita: il il sonuçlar</a></li>
+        <li><a href="#dogrulama">Bilgi doğrulama ilkesi</a></li>
+        <li><a href="#kaynaklar">Bu tür bilgiler nereden doğrulanabilir</a></li>
+        <li><a href="#hata">Hata bildirme</a></li>
+      </ol>
+    </nav>
+    <section id="siniflandirma">
+      <h2>Sınıflandırma ilkesi</h2>
+      <p>Şemadaki yedi sütun <b>ideolojik</b> çizgiye göre ayrılmıştır, kimliğe (etnik, dinî
+        vb.) göre değil. Örneğin HEP'ten DEM Parti'ye uzanan hat ayrı bir "Kürt siyasi
+        hareketi" sütununda değil, "radikal sol" geleneği içinde sınıflandırılmıştır; bu
+        hattın sosyalist sol ile (TİP, TKP, ÖDP, EMEP çizgisi) aralarında örgütsel bir devir
+        ilişkisi olmadığı için ikisi ayrı sütunlarda tutulmuştur.</p>
+      <p class="ilke">Parti amblemleri şemada çizilmez — tescilli marka oldukları için. Bunun
+        yerine her gelenek bir renkle temsil edilir; altı ok, ampul, üç hilal, kır at, yunus,
+        anahtar gibi yaygın bilinen semboller yalnızca yazıyla belirtilir.</p>
+    </section>
+
+    <section id="baglantilar">
+      <h2>Bağlantı türleri</h2>
+      <dl class="terim">
+        <dt>devam</dt><dd>Doğrudan halefiyet: isim değişikliği, yeniden açılma. Şemada düz çizgi.</dd>
+        <dt>bölünme</dt><dd>Ayrılan kadronun kurduğu parti. Şemada kesikli çizgi.</dd>
+        <dt>katılma</dt><dd>Katılma, birleşme, devredilme. Şemada noktalı çizgi.</dd>
+      </dl>
+      <p>Çizgiler <b>örgütsel</b> ilişkiyi gösterir, ideolojik yakınlığı değil — ideolojik
+        akrabalık zaten sütun ve renkle ifade edilir. Örneğin Anahtar Parti'nin amblemi
+        MSP'yi andırsa da, aralarında örgütsel bir devir ilişkisi olmadığı için Milli
+        Görüş'e çizgi çekilmemiştir.</p>
+    </section>
+
+    <section id="rozetler">
+      <h2>Durum rozetleri</h2>
+      <dl class="terim">
+        <dt>kapatıldı</dt><dd>Yargı kararı veya darbeyle sona erdi. Kart taralı zemin alır.</dd>
+        <dt>feshedildi</dt><dd>Partinin kendi kurultay/genel başkan kararıyla kapandı.</dd>
+        <dt>devredildi</dt><dd>Kadro ve üyeler başka bir partiye geçti.</dd>
+        <dt>faal</dt><dd>Halen açık.</dd>
+      </dl>
+    </section>
+
+    <section id="yerlestirme">
+      <h2>Yerleştirme kuralları</h2>
+      <ul>
+        <li>Parti <b>kurulduğu</b> dönem bandına konur, faaliyeti sonraki yıllara uzasa da.</li>
+        <li>Kapatılıp yeniden açılan partiler iki ayrı düğüm olarak gösterilir — örn. CHP
+          (1923–1981 ve 1992–) ve TİP (1961–1971, 1975–1980, 2017–) — aralarında "devam" bağıyla.</li>
+        <li>12 Eylül 1980'de parti faaliyetleri durduruldu, hukuki fesih ise 16 Ekim 1981'de
+          2533 sayılı kanunla gerçekleşti. Bu yüzden o dönemin kartlarında bitiş yılı
+          <b>1981</b>'dir, 1980 değil.</li>
+      </ul>
+    </section>
+
+    <section id="kapsam">
+      <h2>Kapsam ve sınırlar</h2>
+      <p>Meclise girmiş, kapatılmış ya da bir geleneğin halkası olan partiler alınmıştır;
+        Türkiye'de kurulmuş yüzlerce partinin tamamı değil. Şema bir siyasi tarih özetidir,
+        eksiksiz bir parti ansiklopedisi değildir.</p>
+    </section>
+
+    <section id="sandik">
+      <h2>Sandık: ölçüler ve kurallar</h2>
+      <p>Sandık bölümü 1923'ten bugüne genel seçimleri, bulunabilen en eski belediye seçiminden
+        (1930) bugüne yerel seçimleri, referandumları, cumhurbaşkanlığı seçimlerini (TBMM'de ve halk
+        oylamasıyla yapılanları), milletvekili ara seçimlerini ve hükümetleri tek kronolojide gösterir.
+        Yerel ara seçimler kapsam dışıdır; tek istisna 2019 İstanbul yenileme seçimidir. İl il sonuçlar
+        <a href="harita.html">Harita</a> sayfasındadır.</p>
+      <p class="ilke">En az bir resmî ve bir ikinci kaynakta birbiriyle eşleşerek bulunamayan sayı
+        yazılmaz: tablo hücresi boş kalır, hiçbir değeri bilinmeyen satır ya da sütun hiç gösterilmez.
+        Tahmin, yuvarlama ya da aralık yazılmaz; kaydın geri kalanı yerinde durur. Ayrıntılı sonucu
+        bulunamayan seçimler (ör. 1930–1955 yerel seçimleri) kart yerine tek satır olarak görünür;
+        bilinenler pencerede yazılıdır.</p>
+      <dl class="terim">
+        <dt>kazandı</dt><dd>Birinci parti sandalyelerin yarısından fazlasını aldıysa "kazandı · tek başına iktidar"; aksi halde "birinci parti". Genel seçimde sıralama oya değil sandalyeye göredir; yerel seçimde "birinci parti" belediye meclisi oyuna göredir.</dd>
+        <dt>ittifak</dt><dd>YSK'nın resmî liste sonucu esas alınır. Bir partinin adayları başka bir partinin listesinden seçildiyse bu, liste sonucunun altında ayrıca belirtilir.</dd>
+        <dt>diğer</dt><dd>Oyu %1'in altında kalan ve soyağacında yer almayan partiler çoğu kayıtta tek satırda toplanır ve kaç partinin toplandığı yazılır; daha önce meclise girmiş olanlar ayrı satırda kalır.</dd>
+        <dt>yerel oy</dt><dd>Ülke geneli oy oranı belediye meclisi oylarından hesaplanır. Bütün yıllarda aynı ölçü kullanılsın diye il genel meclisi ya da belediye başkanlığı oylarıyla karıştırılmaz; büyükşehirlerde yalnızca belediye başkanlığını kazanan parti gösterilir.</dd>
+        <dt>tutum</dt><dd>Referandumda partinin resmî tavrı: evet, hayır, boykot ya da serbest (resmî tavır almadı ya da üyelerini serbest bıraktı). Kaynakla doğrulanamayan tutum yazılmaz.</dd>
+        <dt>süre</dt><dd>Hükümet penceresindeki süre, kuruluş ve bitiş tarihlerinden takvime göre hesaplanır. Parti penceresindeki "yer aldığı hükümetler" toplamı, partinin kabinede bulunduğu hükümetlerin sürelerinin toplamıdır (yaklaşık yıl ve ay); 2018'den beri kurulan cumhurbaşkanlığı hükümetleri bir partinin hükümeti olarak kaydedilmediği için bu toplama girmez.</dd>
+        <dt>hesaplanan</dt><dd>Resmî kaynak yalnızca il il sayı verdiyse ulusal toplam il satırlarından hesaplanır ve ikinci bir kaynağın ulusal rakamıyla eşleşmesi aranır; eşleşmezse sayı yazılmaz.</dd>
+      </dl>
+      <ul>
+        <li>Veride ham sayılar (kayıtlı seçmen, kullanılan ve geçerli oy, parti oyu) tutulur; yüzdeler
+          bunlardan hesaplanır. Yalnızca yüzde yayımlanmış seçimlerde yayımlanan yüzde kullanılır.</li>
+        <li>İki kaynak arasındaki fark %0,5'e kadarsa sayılar eşleşmiş kabul edilir ve resmî kaynağın
+          sayısı yazılır; fark daha büyükse sayı yazılmaz.</li>
+        <li>1946 seçimi "açık oy, gizli tasnif" usulüyle yapıldı.</li>
+        <li>1963 öncesi yerel seçimler bulunabildiği kadarıyla alınmıştır; bu kayıtlarda ülke geneli
+          oy ve seçmen sayıları çoğunlukla yoktur.</li>
+        <li>Milletvekili ara seçimlerinde yalnızca partilerin kazandığı sandalyeler tutulur; sonuçlar
+          Resmî Gazete'de yayımlanan YSK bildirilerinden alınmış, TESAV'ın ara seçim derlemesiyle
+          karşılaştırılmıştır. 1947, 1948 ve 1949 ara seçimleri, seçim günleri ve partilere göre
+          dağılımları resmî bir belgeyle doğrulanamadığı için yer almaz.</li>
+        <li>1984–2024 yerel seçimlerinin ülke geneli belediye meclisi sayıları yalnızca YSK'nın resmî
+          ilanlarına dayanır; bu sayıları bağımsız olarak veren ikinci bir kaynak bulunamamıştır
+          (DİE/TÜİK yayınları aynı rakamları YSK'dan aktarır).</li>
+        <li>Tek parti dönemi seçimleri iki derecelidir: seçmen, milletvekillerini seçecek ikinci
+          seçmenleri seçer. Bu yüzden bu seçimlerde oy oranı çoğunlukla yoktur. 1931–1943 seçimlerinde
+          CHP bazı illerde aday göstermeyip yerleri bağımsız (müstakil) adaylara bıraktı; seçilen bağımsızlar
+          ayrı satırda gösterilir (TBMM, <i>Türk Parlamento Tarihi</i> IV–VII. dönem ciltleri). Seçimde boş kalıp
+          sonradan dolan sandalyeler meclis çiziminde boş halkadır.</li>
+        <li>Askerî yönetim dönemlerinde (27 Mayıs 1960 ve 12 Eylül 1980 sonrasında, askerî yönetimden
+          çıkışı sağlayan genel seçime kadar) yapılan referandumlar ve kurulan hükümetler, kırmızı
+          kesinti bandının altında toplanır; geçiş seçimi sıradaki dönemi açar.</li>
+        <li><b>Kazanılan belediye başkanlıkları:</b> yerel seçimlerde partilerin kazandığı il, ilçe ve
+          belde belediye başkanlığı sayısı; büyükşehir belediye başkanlıkları (1984'ten itibaren) ayrı
+          gösterilir. 1984–2024 için YSK'nın Resmî Gazete'de yayımlanan kesin sonuç ilanları esas alınmıştır;
+          bu ilanlar seçim günü tutanaklarına dayanır, sonradan iptal edilip yenilenen seçimler ve sonraki
+          parti değişiklikleri sayılara dahil değildir. Bu yüzden bazı ansiklopedi ve derleme kaynaklarındaki
+          (sonraki değişiklikleri de içeren) sayılardan biraz farklıdır. 1963–1977 için YSK'nın seçim
+          arşivindeki sonuç tabloları kullanılmıştır; bu tablolar sonradan yenilenen seçimleri içerip
+          içermediğini belirtmez.</li>
+        <li><b>Genel başkanlar:</b> parti penceresindeki genel başkan listeleri Türkçe Vikipedi'deki parti
+          maddelerine dayanır; büyük partilerin çoğunda adlar İngilizce Vikipedi'yle de karşılaştırılmıştır
+          (çelişki çıkmamıştır). Yalnızca görev yılları yazılır; vekâleten görev yapanlar listelenmez. Kaynakta
+          yılı bulunmayan görevlerde "?" yazar. Listesi bulunamayan üç parti için bu bölüm gösterilmez.</li>
+        <li><b>Hükümet adları:</b> bir hükümetin halk arasında yaygın bilinen adı (ör. Milliyetçi Cephe,
+          REFAHYOL, ANASOL-M) numarasının yanında yazılır; ad ancak en az iki bağımsız kaynakta geçiyorsa
+          kullanılır. Dönemine damga vuran birkaç hükümet (ilk koalisyon, CHP–MSP koalisyonu, iki Milliyetçi Cephe,
+          ANAYOL, REFAHYOL, ANASOL-D, ANASOL-M) şeritte biraz daha büyük gösterilir; bu bir değerlendirmedir, resmî bir
+          sınıflandırma değildir.</li>
+      </ul>
+    </section>
+
+    <section id="harita">
+      <h2>Harita: il il sonuçlar</h2>
+      <p>Harita sayfası ve seçim pencerelerindeki küçük haritalar, her ilde kimin birinci çıktığını
+        gösterir. İl sınırları Natural Earth'ün kamu malı (public domain) verisinden sadeleştirilerek
+        çizilmiştir; sınırlar bugünkü 81 ili gösterir.</p>
+      <ul>
+        <li><b>Genel seçimler:</b> ilde en çok oyu alan parti. 1950–2011 için TÜİK'in <i>Milletvekili Genel
+          Seçimleri 1923–2011</i> yayınındaki il tabloları, 2015–2023 için YSK'nın sonuç sistemindeki seçim
+          çevresi sonuçları (çevreler il olarak toplanmıştır) kullanılmıştır. İl toplamları, sitedeki ülke
+          geneli sayılarla karşılaştırılarak denetlenmiştir.</li>
+        <li>1950, 1954 ve 1957'de çok isimli liste sistemi uygulandığı için il oyları aday oylarının
+          ortalamasıdır; bu yıllarda yüzde gösterilmez.</li>
+        <li>2015 sonrasında il oyları yalnızca yurt içi sandıklarını kapsar. 2018 ve 2023'te yalnızca ittifaka
+          verilen oylar partilere dağıtılmadan dışarıda bırakılmıştır.</li>
+        <li><b>Yerel seçimler:</b> il merkezi belediye başkanlığını, büyükşehir olan illerde büyükşehir
+          belediye başkanlığını kazanan parti. 1989–2024 için TÜİK Mahalli İdareler Seçim Sonuçları Veri Tabanı,
+          1963 için DİE'nin <i>17 Kasım 1963 Mahallî Seçimler</i> yayını (il bölümlerindeki belediye
+          başkanlığı tabloları; kitabın başındaki yanlış-doğru cetveli uygulanarak), 1968 için DİE'nin
+          <i>Mahallî Seçimler Sonuçları, 2 Haziran 1968</i> yayını (il bölümlerindeki "Belediye Başkanı Seçimi
+          Sonuçları" tabloları),
+          1973 için DİE'nin <i>1973 Mahallî Seçimler Sonuçları</i> yayını (Tablo 4; kazanan adaylar adıyla
+          verilir), 1977 için DİE'nin <i>11 Aralık 1977 Yerel Seçim Sonuçları</i> yayını (Tablo 2), 1984 için
+          DİE'nin <i>25 Mart 1984 Mahallî İdareler Seçim Sonuçları</i> yayını (Tablo 2 ve 3) kullanılmıştır.
+          1963–1984 arasında il merkezi belediye başkanlığı (İstanbul ve Ankara'da kentin ya da büyükşehrin
+          başkanlığı) esas alınmıştır. 1930–1955 yerel seçimleri için il il sonuç veren bir kaynak bulunamadığından harita
+          yoktur.</li>
+        <li>DİE kitapları kazanan adayın adını her yıl vermez; o yıllarda kazanan il merkezindeki parti
+          oylarından bulunur. Kitaplar bağımsız adayların oylarını tek sütunda toplar. Bu yüzden bağımsızların
+          toplamının her partiden fazla olduğu illerde kazananın kim olduğu kesin bilinemez ve il boş
+          bırakılır (ör. 1977'de Diyarbakır, Elazığ, Malatya, Tunceli).</li>
+        <li>1963 İstanbul'da seçim günü en çok oyu AP adayı almıştır; YSK'nın sonradan verdiği kararla
+          CHP adayı başkan sayılmıştır. Haritada seçim günü sonucu (AP) gösterilir, karar il notunda
+          belirtilir. 1963 kitabında bazı illerde parti oylarının toplamı geçerli oydan birinci ile ikinci
+          arasındaki farktan daha fazla ayrılır; bu illerde kitaptaki birinci gösterilir, fark il notunda
+          yazılıdır.</li>
+        <li>Haritalar yalnızca seçim günü sonuçlarını gösterir; sonradan olan değişiklikler (seçimin
+          yenilenmesi, parti değiştirme) işlenmez. Seçimi iptal edilip tekrarlanan illerde ilk seçimin
+          sonucu gösterilir ve il notunda "seçim tekrarlandı" yazar (1994 Nevşehir, 2019 İstanbul). İlk
+          seçimin kazananı kaynaklarda kesinleşmeyen illerde (1973 Ağrı, 2014 Ağrı ve Yalova — fark birkaç
+          oydu, kaynaklar çelişiyor) il boş bırakılır; notta kaynakların ne dediği yazılıdır.</li>
+        <li><b>Referandumlar:</b> 1961, 1982, 1987, 1988, 2007 ve 2010 için YSK Halkoylaması Arşivi'ndeki
+          resmî il tabloları, 2017 için YSK'nın Sandık Sonuçları sistemindeki (sonuc.ysk.gov.tr) il
+          birleştirme tutanakları kullanılmıştır. İllerin evet ve hayır oyları toplandığında YSK'nın ülke
+          geneli sayılarına (gümrük kapısı, ceza infaz kurumu ve yurt dışı oyları hariç) birebir ulaşılır.
+          Haritada ton, ilde çoğunluğun (evet ya da hayır) oranını gösterir. 2017 için Vikipedi'deki il
+          tablosu gayriresmî sayıma dayanır ve resmî sonuçtan birkaç yüz oy farklıdır; kullanılmamıştır.</li>
+        <li>Seçim tarihinde henüz ayrı il olmayan yerler taralı gösterilir; sonucu bulunamayan ya da iptal
+          edilen iller boş bırakılır. Renkler parti ailelerinin renkleridir; aynı aileden birden fazla parti il
+          kazandığında diğerleri aynı rengin açık ya da koyu tonunu alır.</li>
+        <li>İl sonuçları yalnızca resmî kaynağa (YSK, TÜİK ve öncülü DİE) dayanır; ikinci bir kaynakla il il
+          karşılaştırılmamıştır.</li>
+      </ul>
+    </section>
+
+    <section id="dogrulama">
+      <h2>Bilgi doğrulama ilkesi</h2>
+      <p class="ilke">Bilgi uydurulmaz. Bir partinin akıbeti net değilse şemada tahmini bir
+        tarih ya da rozet gösterilmez — belirsizlik, bilgi bulununcaya kadar şemadan
+        tamamen dışarıda bırakılır.</p>
+      <p>Künye panelindeki özetler (kurucu, kısa tarihçe) kaçınılmaz olarak bir yorum payı
+        taşır, özellikle güncel dönem için. Bu özetler kesin hüküm değil, okumayı
+        kolaylaştıran kısa bağlam notlarıdır.</p>
+    </section>
+
+    <section id="kaynaklar">
+      <h2>Bu tür bilgiler nereden doğrulanabilir</h2>
+      <p>Aşağıdaki liste şemadaki belirli bir iddianın dipnotu değildir — kuruluş/kapanış
+        tarihi, kapatma kararı ya da birleşme gibi bilgilerin genel olarak hangi türden
+        kamuya açık kurumsal kayıtlarla çapraz kontrol edilebileceğine dair bir yönlendirmedir.</p>
+      <ul class="kaynak-liste">
+        <li><b>TBMM Tutanak ve Arşiv Hizmetleri</b>Grup kararları, meclise giriş tarihleri, milletvekili sayıları.</li>
+        <li><b>Resmî Gazete</b>Parti kapatma kararlarının ve resmî kuruluş bildirimlerinin yayımlandığı yer.</li>
+        <li><b>Anayasa Mahkemesi kararları</b>Parti kapatma davalarının gerekçeli kararları.</li>
+        <li><b>Yüksek Seçim Kurulu (YSK)</b>Seçim sonuçları ve oy oranları.</li>
+        <li><b>Partilerin resmî tüzük ve kurultay kayıtları</b>İsim değişiklikleri, birleşme ve fesih kararları.</li>
+        <li><b>Türkiye İstatistik Kurumu (TÜİK) seçim yayınları</b>Milletvekili genel seçimleri ve mahalli idareler seçimleri sonuç yayınları; 1961 öncesi seçimler için arşiv taramasına dayanan derlemeler.</li>
+        <li><b>TBMM: Hükümetler, Programları ve Genel Kurul Görüşmeleri</b>Hükümetlerin kuruluş ve bitiş tarihleri, kabine listeleri ve güven oylamaları.</li>
+      </ul>
+    </section>
+
+    <section id="hata">
+      <h2>Hata bildirme</h2>
+      <p>Bu şema tek bir kişi tarafından derlenen, zaman zaman güncellenen bir çalışmadır.
+        Bir tarihte, sınıflandırmada ya da bağlantıda hata görürseniz düzeltilmesi
+        gerekir — şemanın amacı iddialı olmak değil, doğru olmaktır. Bir hata
+        fark ederseniz <a href="mailto:emrebiltekin@gmail.com">emrebiltekin@gmail.com</a>
+        adresine bildirebilirsiniz.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><b>Bu sayfa hakkında.</b> Ana sayfadaki soyağacı şemasının hangi kurallarla
+      kurgulandığını açıklar. Parti başına bir kaynak/dipnot listesi değildir — bkz.
+      yukarıdaki "bu tür bilgiler nereden doğrulanabilir" bölümü.</p>
+  </footer>
+</div>

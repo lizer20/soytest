@@ -1,0 +1,50 @@
+diff --git a/veri/sandik.js b/veri/sandik.js
+index d0b73cb..b81d1c4 100644
+--- a/veri/sandik.js
++++ b/veri/sandik.js
+@@ -458,7 +458,44 @@ window.SANDIK = {
+     { id: "2015-11-genel", tur: "genel", tarih: "2015-11-01", tekParti: false,
+       meclis: 550, kayitli: 56949009, kullanilan: 48537695, gecerli: 47840231, baraj: 10,
+       sonuc: [ { parti: "akp", oy: 23681926, sandalye: 317 }, { parti: "chp92", oy: 12111812, sandalye: 134 }, { parti: "hdp", oy: 5148085, sandalye: 59 }, { parti: "mhp93", oy: 5694136, sandalye: 40 }, { parti: "sp", oy: 325978, sandalye: 0 }, { parti: "bbp", oy: 253204, sandalye: 0 }, { parti: "vatan", oy: 118803, sandalye: 0 }, { parti: "dp07", oy: 69319, sandalye: 0 }, { parti: "dsp", oy: 31805, sandalye: 0 }, { parti: "ldp", oy: 26816, sandalye: 0 }, { ad: "Diğer", partiSayisi: 6, oy: 327309, sandalye: 0 }, { ad: "Bağımsız", oy: 51038, sandalye: 0 } ],
+-      not: "Anayasa'nın 116. maddesi uyarınca alınan yenileme kararıyla yapılan bu seçimde AK Parti yeniden tek başına iktidar oldu; sayılar yurt içi, yurt dışı ve gümrük sandıklarının toplamıdır." }
++      not: "Anayasa'nın 116. maddesi uyarınca alınan yenileme kararıyla yapılan bu seçimde AK Parti yeniden tek başına iktidar oldu; sayılar yurt içi, yurt dışı ve gümrük sandıklarının toplamıdır." },
++
++    // --- dönem 7 (2016 – 2026) ---
++
++    // kaynak: araclar/kaynak-defteri.md#2017-04-referandum
++    { id: "2017-04-referandum", tur: "referandum", tarih: "2017-04-16",
++      konu: "21 Ocak 2017 tarihli ve 6771 sayılı Kanunla Türkiye Cumhuriyeti Anayasası'nın bazı maddelerinde yapılan ve cumhurbaşkanlığı hükümet sistemine geçişi öngören değişiklikler.",
++      kayitli: 58291898, kullanilan: 49798855, gecerli: 48936604,
++      evet: 25157463, hayir: 23779141, karar: "kabul",
++      not: "Sayılara yurt içi sandıkların yanında yurt dışı temsilcilik ve gümrük kapısı sandıkları da dahildir; kabul edilen değişiklikler, birlikte yapılan ilk TBMM ve cumhurbaşkanlığı seçimlerinin ardından cumhurbaşkanının göreve başladığı tarihte yürürlüğe girmiştir." },
++
++    // kaynak: araclar/kaynak-defteri.md#2018-06-genel
++    { id: "2018-06-genel", tur: "genel", tarih: "2018-06-24", tekParti: false,
++      meclis: 600, kayitli: 59367469, kullanilan: 51189444, gecerli: 50137175, baraj: 10,
++      sonuc: [ { parti: "akp", oy: 21338693, sandalye: 295 }, { parti: "chp92", oy: 11354190, sandalye: 146 }, { parti: "hdp", oy: 5867302, sandalye: 67 }, { parti: "mhp93", oy: 5565331, sandalye: 49 }, { parti: "iyi", oy: 4993479, sandalye: 43 }, { parti: "sp", oy: 672139, sandalye: 0 }, { ad: "Hür Dava Partisi", oy: 155539, sandalye: 0 }, { parti: "vatan", oy: 114872, sandalye: 0 }, { ad: "Bağımsız", oy: 75630, sandalye: 0 } ],
++      not: "Cumhurbaşkanı seçimiyle birlikte yapılan bu seçimde milletvekili sayısı 600'e çıktı ve partiler ilk kez ittifakla girdi: AK Parti ile MHP Cumhur İttifakı'nı, CHP–İYİ Parti–Saadet Partisi Millet İttifakı'nı kurdu." },
++
++    // kaynak: araclar/kaynak-defteri.md#2018-06-cb-halk
++    { id: "2018-06-cb-halk", tur: "cb-halk", tarih: "2018-06-24",
++      turlar: [ { tarih: "2018-06-24", kayitli: 59367469, kullanilan: 51197959, gecerli: 50068627,
++        adaylar: [ { ad: "Recep Tayyip Erdoğan", oy: 26330823 }, { ad: "Muharrem İnce", oy: 15340321 }, { ad: "Selahattin Demirtaş", oy: 4205794 }, { ad: "Meral Akşener", oy: 3649030 }, { ad: "Temel Karamollaoğlu", oy: 443704 }, { ad: "Doğu Perinçek", oy: 98955 } ] } ],
++      secilen: "Recep Tayyip Erdoğan",
++      not: "Geçerli oyların salt çoğunluğunu ilk turda alan Erdoğan'ın 9 Temmuz 2018'de göreve başlamasıyla Anayasa'nın Bakanlar Kurulu ve Başbakanlık hükümlerini değiştiren 6771 sayılı Kanun yürürlüğe girdi." },
++
++    // kaynak: araclar/kaynak-defteri.md#2023-05-genel
++    { id: "2023-05-genel", tur: "genel", tarih: "2023-05-14", tekParti: false,
++      meclis: 600, kayitli: 64145504, kullanilan: 55835895, gecerli: 54442588, baraj: 7,
++      sonuc: [ { parti: "akp", oy: 19392462, sandalye: 268 }, { parti: "chp92", oy: 13802183, sandalye: 169 }, { parti: "mhp93", oy: 5484820, sandalye: 50 }, { parti: "yesilsol", oy: 4803922, sandalye: 61 }, { parti: "iyi", oy: 5275981, sandalye: 43 }, { parti: "yrp", oy: 1527048, sandalye: 5 }, { parti: "tip17", oy: 956057, sandalye: 4 }, { parti: "zafer", oy: 1216399, sandalye: 0 }, { parti: "bbp", oy: 530770, sandalye: 0 }, { parti: "memleket", oy: 502669, sandalye: 0 }, { parti: "vatan", oy: 52720, sandalye: 0 }, { ad: "Diğer", partiSayisi: 13, oy: 670726, sandalye: 0 }, { ad: "Bağımsız", oy: 226831, sandalye: 0 } ],
++      not: "Genel barajın 7393 sayılı Kanunla %10'dan %7'ye indirildiği bu seçimde AK Parti, MHP, Yeniden Refah ve BBP Cumhur İttifakı'nda, CHP ile İYİ Parti Millet İttifakı'nda, Yeşiller ve Sol Gelecek Partisi ile TİP Emek ve Özgürlük İttifakı'nda yer aldı." },
++
++    // kaynak: araclar/kaynak-defteri.md#2023-05-cb-halk
++    { id: "2023-05-cb-halk", tur: "cb-halk", tarih: "2023-05-14",
++      turlar: [ { tarih: "2023-05-14", kayitli: 64145504, kullanilan: 55833153, gecerli: 54796049,
++        adaylar: [ { ad: "Recep Tayyip Erdoğan", destek: "AK Parti ve MHP gruplarının adayı", oy: 27133849 }, { ad: "Kemal Kılıçdaroğlu", destek: "CHP ve İYİ Parti gruplarının adayı", oy: 24595178 }, { ad: "Sinan Oğan", oy: 2831239 }, { ad: "Muharrem İnce", oy: 235783 } ] },
++        { tarih: "2023-05-28", kayitli: 64197454, kullanilan: 54023601, gecerli: 53339313,
++        adaylar: [ { ad: "Recep Tayyip Erdoğan", destek: "AK Parti ve MHP gruplarının adayı", oy: 27834589 }, { ad: "Kemal Kılıçdaroğlu", destek: "CHP ve İYİ Parti gruplarının adayı", oy: 25504724 } ] } ],
++      secilen: "Recep Tayyip Erdoğan",
++      not: "Hiçbir aday ilk oylamada geçerli oyların salt çoğunluğunu sağlayamadığı için 28 Mayıs 2023'te ikinci oylama yapıldı ve Erdoğan'ın yeniden seçilmesinin ardından yeni kabine 3 Haziran 2023'te atandı." }
+   ],
+ 
+   hukumetler: [

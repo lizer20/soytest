@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Türkiye Siyasi Partileri Soyağacı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="1923'ten bugüne Türkiye'de kurulan siyasi partilerin soyağacı: yedi gelenek, süreklilikler, bölünmeler, birleşmeler ve kapatmalar tek şemada.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:description" content="1923'ten bugüne Türkiye'de kurulan siyasi partilerin soyağacı: yedi gelenek, süreklilikler, bölünmeler, birleşmeler ve kapatmalar tek şemada.">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:url" content="https://emrebiltekin.me/soyagaci/">
+<meta property="og:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-soyagaci.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Türkiye siyasi partilerinin soyağacı şeması: yedi gelenek, partiler ve aralarındaki bağlar">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Türkiye Siyasi Partileri Soyağacı">
+<meta name="twitter:description" content="1923'ten bugüne Türkiye'de kurulan siyasi partilerin soyağacı: yedi gelenek, süreklilikler, bölünmeler, birleşmeler ve kapatmalar tek şemada.">
+<meta name="twitter:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-soyagaci.png">
+<link rel="canonical" href="https://emrebiltekin.me/soyagaci/">
+<link rel="icon" href="paylasim/simge.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="paylasim/simge-180.png">
+<meta name="theme-color" content="#151810">
+<link rel="stylesheet" href="ortak.css">
+<style>
+  /* Bu sayfaya (soyağacı şeması) özel stiller. Fontlar, tasarım tokenları, üst menü ve temel tipografi ortak.css içinde. */
+
+  .lejant{
+    max-width:1100px;margin:22px auto 0;display:flex;flex-wrap:wrap;gap:6px 20px;
+    padding-top:16px;border-top:1px solid var(--cizgi);
+  }
+  .lej{
+    display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;
+    cursor:pointer;padding:2px 6px;margin:-2px -6px;border:1px solid transparent;
+  }
+  .lej:hover{border-color:var(--cizgi)}
+  .lej:focus-visible{outline:2px solid var(--murekkep);outline-offset:2px}
+  .lej.secili{border-color:var(--murekkep);background:rgba(21,24,16,.07)}
+  .dot{width:11px;height:11px;border-radius:50%;flex:none}
+  .lejant2{
+    max-width:1100px;margin:14px auto 0;display:flex;flex-wrap:wrap;gap:6px 20px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--soluk);
+  }
+  .lejant2 span{display:flex;align-items:center;gap:7px}
+  .swatch{width:26px;height:0;border-top:2px solid var(--soluk);flex:none}
+  .swatch.kesik{border-top-style:dashed}
+  .swatch.nokta{border-top-style:dotted}
+
+
+  .kaydir-ipucu{
+    max-width:1100px;margin:24px auto 8px;font-family:"IBM Plex Mono",monospace;
+    font-size:11px;color:var(--soluk);letter-spacing:.06em;
+  }
+  .mobil-ipucu{display:none}
+  .scroller{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding-bottom:10px}
+
+  #chart{position:relative;min-width:1360px;max-width:1500px;margin:0 auto}
+  #edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+
+  .satir{
+    display:grid;grid-template-columns:repeat(7,1fr);gap:0 12px;
+    margin-bottom:26px;position:relative;z-index:1;
+  }
+  .hucre{display:flex;flex-direction:column;gap:12px}
+
+  .kart .kisa{
+    font-family:"Fraunces",serif;font-weight:700;font-size:16px;line-height:1.1;
+    color:var(--aile);margin-bottom:2px;letter-spacing:-.01em;
+  }
+  .kart .ad{font-size:11.5px;line-height:1.25;color:#2A2E22;margin-bottom:6px}
+  .kart .yil{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:var(--soluk);
+    display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  }
+  .kart .sembol{
+    font-size:10.5px;color:var(--soluk);margin-top:5px;padding-top:5px;
+    border-top:1px dotted var(--cizgi);
+  }
+  .kart .sembol b{font-family:"IBM Plex Mono",monospace;font-weight:600;color:#2A2E22}
+  .kart .not{font-size:10.5px;color:var(--soluk);margin-top:5px;font-style:italic}
+
+  .kart.kapatildi{
+    background:
+      repeating-linear-gradient(-45deg,
+        transparent 0 6px,
+        rgba(122,21,9,.09) 6px 7px);
+    background-color:var(--kart);
+    border-style:dashed;
+  }
+
+  #chart.odak .kart{opacity:.28}
+  #chart.odak .kart.aktif{opacity:1}
+  #chart.odak .kart.komsu{opacity:1}
+
+  #chart.filtreli .kart{opacity:.2}
+  #chart.filtreli .kart.sonuc{opacity:1}
+
+  path.kenar{fill:none;stroke-width:1.6;opacity:.5;transition:opacity .18s,stroke-width .18s}
+  path.kenar.bolunme{stroke-dasharray:6 4}
+  path.kenar.katilma{stroke-dasharray:2 4;stroke-width:2}
+  #chart.odak path.kenar{opacity:.07}
+  #chart.odak path.kenar.aktif{opacity:1;stroke-width:2.6}
+
+  @media (max-width:560px){
+    .kart .sembol,.kart .not{font-size:12px}
+  }
+  @media (max-width:760px){
+    .masaustu-ipucu{display:none}
+    .mobil-ipucu{display:block}
+
+    .scroller{overflow-x:visible}
+    #chart{min-width:0;max-width:100%}
+    #edges{display:none}
+
+    .satir{display:flex;flex-direction:column;gap:10px}
+    .hucre:empty{display:none}
+
+  }
+</style>
+
+<nav class="ustmenu">
+  <div class="ustmenu-ic">
+    <a href="index.html" class="ustmenu-link aktif">Ana sayfa</a>
+    <a href="sandik.html" class="ustmenu-link">Sandık</a>
+    <a href="harita.html" class="ustmenu-link">Harita</a>
+    <a href="kaynakca.html" class="ustmenu-link">Kaynakça<span class="uzun"> &amp; metodoloji</span></a>
+  </div>
+</nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">1923 — 2026 · süreklilikler, kopuşlar, kapatmalar · son güncelleme Eylül 2026</div>
+    <h1>Türkiye siyasi partileri<br><em>soyağacı</em></h1>
+    <p class="lede">Yedi ana gelenek, yüz yıllık bir çizelge. Düz çizgiler doğrudan devamlılığı (isim değişikliği, yeniden kuruluş), kesikli çizgiler bölünmeleri, noktalı çizgiler katılma ve birleşmeleri gösterir.</p>
+    <p class="lede" style="margin-top:10px">Taralı ve kesik çerçeveli kartlar, <b>kapatılmış</b> partilerdir. Kırmızı bantlar ise şemadaki kopuş anları: askerî müdahaleler ve kapatma dalgaları.</p>
+    <p class="disclaimer">Parti amblemleri tescilli marka olduğu için çizilmedi; bunun yerine her gelenek bir renkle temsil ediliyor ve yaygın bilinen semboller yazıyla belirtiliyor. Bazı bağlantılar hukuki halefiyet değil siyasi süreklilik iddiasıdır ve tartışmalıdır — kartlardaki notlara bakın.</p>
+  </header>
+
+  <div class="lejant" id="lejant"></div>
+  <div class="lejant2">
+    <span><i class="swatch"></i> doğrudan devam / isim değişikliği</span>
+    <span><i class="swatch kesik"></i> bölünme, ayrılan kadro</span>
+    <span><i class="swatch nokta"></i> katılma / birleşme</span>
+  </div>
+
+  <div class="araclar">
+    <input id="ara" class="ara-kutu" type="search" placeholder="Parti ya da genel başkan ara… (ör. AKP, Demirel)" autocomplete="off" aria-label="Parti ya da genel başkan ara">
+    <div class="yil-filtre">
+      <span>yıl</span>
+      <input id="yilKaydirici" type="range" step="1" aria-label="Yıl filtresi">
+      <span id="yilDeger" class="yil-deger"></span>
+    </div>
+    <button id="filtreTemizle" class="temizle-buton" type="button">filtreleri temizle</button>
+  </div>
+
+  <div class="kaydir-ipucu masaustu-ipucu">↔ yatay kaydırın · üstüne gelince bağlar aydınlanır · <b>tıklayınca partinin künyesi açılır</b></div>
+  <div class="kaydir-ipucu mobil-ipucu">dönem başlığına dokunarak açıp kapatın · <b>karta dokununca künyesi açılır</b></div>
+
+  <div class="scroller">
+    <div id="chart">
+      <svg id="edges"></svg>
+      <div id="rows"></div>
+    </div>
+  </div>
+
+  <div id="perde"></div>
+  <aside id="panel" role="dialog" aria-modal="true" aria-labelledby="p-kisa" inert aria-hidden="true">
+    <button id="kapat" aria-label="Kapat">✕</button>
+    <div id="p-govde"></div>
+  </aside>
+
+  <footer>
+    <p><b>Okuma notu.</b> Şema kurucu tarihe göre dizilmiştir; bir parti kurulduğu dönem bandında görünür, faaliyeti sonraki yıllara uzasa da. 12 Eylül 1980'de parti faaliyetleri yasaklandı, hukuki fesih ise 16 Ekim 1981'de gerçekleşti — bu yüzden o dönemin kartlarında bitiş yılı 1981'dir. Mal varlıkları Hazine'ye devredildiği için 1983 bandı neredeyse tümüyle sıfırdan kuruluşlardan oluşur.</p>
+    <p><b>Yeni Yol hakkında.</b> Şemadaki tek "çatı parti". TBMM İçtüzüğü grup kurmak için tek bir partiden en az 20 milletvekili şartı aradığından, Saadet, Gelecek ve DEVA 2025'te ortak bir tüzel kişilik kurdu. Üç parti örgütlerini, programlarını ve genel başkanlarını korudu; bu yüzden şemada birleşme değil, üç ayrı noktalı bağla gösteriliyor.</p>
+    <p><b>Sınıflandırma.</b> Sütunlar ideolojik çizgiye göre ayrılmıştır. Sosyalist sol (TİP, TKP, ÖDP, EMEP çizgisi) ile radikal sol (HEP'ten DEM Parti'ye uzanan hat) ayrı tutuldu; ikisi de solda yer alsa da aralarında örgütsel devir ilişkisi yok, iki bağımsız zincir oluşturuyorlar.</p>
+    <p><b>Rozetler.</b> "kapatıldı" yargı ya da darbe kararıyla sona ermeyi, "feshedildi" partinin kendi kararıyla kapanmasını, "devredildi" kadro ve üyelerin başka bir partiye geçmesini belirtir.</p>
+    <p><b>Kapsam.</b> Meclise girmiş, kapatılmış ya da bir geleneğin halkası olan partiler alınmıştır; Türkiye'de kurulmuş yüzlerce partinin tamamı değil.</p>
+  </footer>
+</div>
+
+<script src="veri/partiler.js"></script>
+<script src="veri/sandik.js"></script>
+<script src="veri/genel-baskanlar.js"></script>
+<script src="ortak.js"></script>
+<script src="sandik-mantik.js"></script>
+<script>
+(function(){
+  const {AILE, BILGI, DONEMLER, N, E, ROZET} = window.PARTILER;
+  const SANDIK = window.SANDIK;
+  const SM = SandikMantik.olustur(window.PARTILER, Ortak);
+
+  const GUNCEL_YIL=2026;
+  let arama="", aileFiltre=null, yilFiltre=null, filtreAktif=false;
+
+  const lej = document.getElementById("lejant");
+  AILE.forEach((a,i)=>{
+    const d=document.createElement("div"); d.className="lej";
+    d.innerHTML='<i class="dot" style="background:'+a.ham+'"></i>'+a.ad;
+    d.tabIndex=0; d.setAttribute("role","button"); d.setAttribute("aria-pressed","false");
+    function ailesecTogla(){
+      document.querySelectorAll(".lej").forEach(x=>{x.classList.remove("secili"); x.setAttribute("aria-pressed","false");});
+      if(aileFiltre===i){ aileFiltre=null; }
+      else{ aileFiltre=i; d.classList.add("secili"); d.setAttribute("aria-pressed","true"); }
+      filtreUygula();
+    }
+    d.addEventListener("click",ailesecTogla);
+    d.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); ailesecTogla(); } });
+    lej.appendChild(d);
+  });
+
+  const rows=document.getElementById("rows");
+  DONEMLER.forEach((d,i)=>{
+    const b=document.createElement("div"); b.className="banner";
+    b.innerHTML='<span class="yil">'+d.yil+'</span><span class="ad">'+d.ad+'</span><span class="ok" aria-hidden="true">−</span>';
+    rows.appendChild(b);
+
+    const s=document.createElement("div"); s.className="satir"; s.id="donem-"+i;
+    for(let c=0;c<7;c++){
+      const h=document.createElement("div"); h.className="hucre"; h.dataset.col=c;
+      N.filter(n=>n.donem===i && n.aile===c).forEach(n=>h.appendChild(kart(n)));
+      s.appendChild(h);
+    }
+    rows.appendChild(s);
+
+    Ortak.bantKur(b, s, ciz);
+
+    if(d.kesinti){
+      const k=document.createElement("div"); k.className="banner kesinti";
+      k.innerHTML='<span class="yil">⚡</span><span class="ad">'+d.kesinti.metin+'</span>';
+      rows.appendChild(k);
+    }
+  });
+
+  function kart(n){
+    const el=document.createElement("div");
+    el.className="kart"+(n.durum==="kapatildi"?" kapatildi":"");
+    el.style.setProperty("--aile",AILE[n.aile].ham);
+    el.dataset.id=n.id;
+    el.tabIndex=0;
+    el.setAttribute("role","button");
+    el.addEventListener("keydown",e=>{
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); ac(n.id); }
+    });
+    const r=ROZET[n.durum];
+    el.innerHTML =
+      '<div class="kisa">'+n.kisa+'</div>'+
+      '<div class="ad">'+n.ad+'</div>'+
+      '<div class="yil">'+n.yil+' <span class="rozet '+r[1]+'">'+r[0]+'</span></div>'+
+      (n.sembol?'<div class="sembol">sembol · <b>'+n.sembol+'</b></div>':'')+
+      (n.not?'<div class="not">'+n.not+'</div>':'');
+    return el;
+  }
+
+  const chart=document.getElementById("chart");
+  const svg=document.getElementById("edges");
+  const yol={};
+
+  function ciz(){
+    svg.innerHTML="";
+    const cb=chart.getBoundingClientRect();
+    svg.setAttribute("viewBox","0 0 "+chart.offsetWidth+" "+chart.offsetHeight);
+    for(const k in yol) delete yol[k];
+
+    E.forEach(e=>{
+      const a=chart.querySelector('[data-id="'+e[0]+'"]');
+      const b=chart.querySelector('[data-id="'+e[1]+'"]');
+      if(!a||!b) return;
+      // kapalı dönemdeki kart ölçülemez; ucu görünmeyen bağı hiç çizme
+      if(a.offsetParent===null||b.offsetParent===null) return;
+      const ra=a.getBoundingClientRect(), rb=b.getBoundingClientRect();
+      const ax=ra.left-cb.left+ra.width/2, bx=rb.left-cb.left+rb.width/2;
+
+      let ay,by;
+      if(rb.top>=ra.bottom-4){ ay=ra.bottom-cb.top; by=rb.top-cb.top; }
+      else if(rb.bottom<=ra.top+4){ ay=ra.top-cb.top; by=rb.bottom-cb.top; }
+      else { ay=ra.top-cb.top+ra.height/2; by=rb.top-cb.top+rb.height/2; }
+
+      const dy=(by-ay);
+      const c=Math.max(28,Math.min(90,Math.abs(dy)*0.55));
+      const d="M "+ax+" "+ay+" C "+ax+" "+(ay+Math.sign(dy||1)*c)+", "+bx+" "+(by-Math.sign(dy||1)*c)+", "+bx+" "+by;
+
+      const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+      p.setAttribute("d",d);
+      p.setAttribute("class","kenar "+e[2]);
+      const kaynak=N.find(n=>n.id===e[0]);
+      p.setAttribute("stroke",AILE[kaynak?kaynak.aile:0].ham);
+      svg.appendChild(p);
+
+      (yol[e[0]]=yol[e[0]]||[]).push({p:p,other:e[1]});
+      (yol[e[1]]=yol[e[1]]||[]).push({p:p,other:e[0]});
+    });
+  }
+
+  /* ---- arama / sütun / yıl filtreleri ---- */
+  function parseYil(y){
+    const bas=+y.slice(0,4);
+    if(y.indexOf("–")===-1) return {bas:bas, bit:bas};
+    const m=y.match(/–\s*(\d{4})/);
+    return {bas:bas, bit:m?+m[1]:GUNCEL_YIL};
+  }
+
+  function eslesiyorMu(n){
+    if(aileFiltre!==null && n.aile!==aileFiltre) return false;
+    if(yilFiltre!==null){
+      const yr=parseYil(n.yil);
+      if(yilFiltre<yr.bas || yilFiltre>yr.bit) return false;
+    }
+    if(arama){
+      const q=arama.toLocaleLowerCase("tr");
+      const gb=(window.GENEL_BASKANLAR||{})[n.id]||[];
+      const hedef=(n.kisa+" "+n.ad+" "+gb.map(x=>x.ad).join(" ")).toLocaleLowerCase("tr");
+      if(hedef.indexOf(q)===-1) return false;
+    }
+    return true;
+  }
+
+  function filtreUygula(){
+    filtreAktif=!!(arama || aileFiltre!==null || yilFiltre!==null);
+    chart.classList.toggle("filtreli",filtreAktif);
+    if(filtreAktif){
+      chart.classList.remove("odak");
+      chart.querySelectorAll(".aktif,.komsu").forEach(x=>x.classList.remove("aktif","komsu"));
+    }
+    chart.querySelectorAll(".kart").forEach(el=>{
+      const n=bul(el.dataset.id);
+      el.classList.toggle("sonuc",filtreAktif && eslesiyorMu(n));
+    });
+    let duzenDegisti=false;
+    if(filtreAktif){
+      document.querySelectorAll(".satir.kapali").forEach(s=>{
+        if(!s.querySelector(".kart.sonuc")) return;
+        duzenDegisti=true;
+        const b=document.querySelector('.banner[aria-controls="'+s.id+'"]');
+        if(b) Ortak.bantDurum(b, s, false); else s.classList.remove("kapali");
+      });
+    }
+    document.getElementById("filtreTemizle").classList.toggle("aktif",filtreAktif);
+    // sadece kapalı bir dönem açıldıysa yükseklikler değişir; her tuş vuruşunda yeniden çizme
+    if(duzenDegisti) ciz();
+  }
+
+  function vurgula(k){
+    if(filtreAktif||!k) return;
+    if(k.classList.contains("aktif")) return;   // aynı kart içinde gezinirken titremesin
+    vurguyuSil();
+    chart.classList.add("odak");
+    k.classList.add("aktif");
+    (yol[k.dataset.id]||[]).forEach(o=>{
+      o.p.classList.add("aktif");
+      const m=chart.querySelector('[data-id="'+o.other+'"]');
+      if(m) m.classList.add("komsu");
+    });
+  }
+  function vurguyuSil(){
+    chart.classList.remove("odak");
+    chart.querySelectorAll(".aktif,.komsu").forEach(x=>x.classList.remove("aktif","komsu"));
+  }
+  chart.addEventListener("mouseover",ev=>vurgula(ev.target.closest(".kart")));
+  chart.addEventListener("mouseout",ev=>{
+    // kart içindeki alt öğeler arasında gezinirken vurguyu düşürme
+    const k=ev.target.closest(".kart"); if(!k) return;
+    if(ev.relatedTarget&&k.contains(ev.relatedTarget)) return;
+    vurguyuSil();
+  });
+  chart.addEventListener("focusin",ev=>vurgula(ev.target.closest(".kart")));
+  chart.addEventListener("focusout",ev=>{
+    const k=ev.target.closest(".kart"); if(!k) return;
+    if(ev.relatedTarget&&k.contains(ev.relatedTarget)) return;
+    vurguyuSil();
+  });
+
+  /* ---- açıklama paneli ---- */
+  const panel=document.getElementById("panel");
+  const perde=document.getElementById("perde");
+  const govde=document.getElementById("p-govde");
+  const ETIKET={devam:"doğrudan devam",bolunme:"bölünme",katilma:"katılma"};
+  const Panel = Ortak.panelKur({
+    panel, perde, govde,
+    kapatDugmesi: document.getElementById("kapat"),
+    odakSecici: ".kart",
+    kapaninca: () => history.replaceState(null, "", location.pathname + location.search)
+  });
+
+  function bul(id){ return N.find(n=>n.id===id); }
+
+  function satirlar(liste){
+    return liste.map(x=>{
+      const n=bul(x.id); if(!n) return "";
+      return '<li><i style="background:'+AILE[n.aile].ham+'"></i>'+
+             '<button class="p-git" data-git="'+n.id+'">'+n.kisa+'</button>'+
+             '<span>'+n.yil+' · '+x.tur+'</span></li>';
+    }).join("");
+  }
+
+  function ac(id){
+    const n=bul(id); if(!n) return;
+    const b=BILGI[id]||{};
+    const renk=AILE[n.aile].ham;
+    const r=ROZET[n.durum];
+    const oncul=E.filter(e=>e[1]===id).map(e=>({id:e[0],tur:ETIKET[e[2]]}));
+    const ardil=E.filter(e=>e[0]===id).map(e=>({id:e[1],tur:ETIKET[e[2]]}));
+    const html =
+      '<div class="p-kisa" id="p-kisa" style="color:'+renk+'">'+n.kisa+'</div>'+
+      '<div class="p-ad">'+n.ad+'</div>'+
+      '<div class="p-meta">'+n.yil+' <span class="rozet '+r[1]+'">'+r[0]+'</span>'+
+        ' · '+AILE[n.aile].ad+'</div>'+
+      (b.k?'<div class="p-etiket">Kurucu ve öncü isimler</div><div class="p-kurucu">'+b.k+'</div>':'')+
+      (b.o?'<div class="p-etiket">Özet</div><div class="p-ozet">'+b.o+'</div>':'')+
+      SM.genelBaskanlarHTML(id, window.GENEL_BASKANLAR)+
+      (n.sembol?'<div class="p-etiket">Sembol</div><div class="p-sembol">'+n.sembol+'</div>':'')+
+      (oncul.length?'<div class="p-etiket">Nereden geldi</div><ul>'+satirlar(oncul)+'</ul>':'')+
+      (ardil.length?'<div class="p-etiket">Nereye gitti</div><ul>'+satirlar(ardil)+'</ul>':'')+
+      SM.partiHukumetleriHTML(id, SANDIK);
+    // il sonuçları (≈240 KB) yalnız bir parti penceresi açılınca yüklenir; "birinci çıktığı iller" sonra dolar
+    const ilVar = !!window.IL_SONUCLARI;
+    const secimler = SM.kunyeSecimleriHTML(id, SANDIK) + '<div class="p-hk" data-id="'+id+'">' +
+      (ilVar ? SM.haritaKunyeHTML(id, SANDIK, window.IL_SONUCLARI) : "") + '</div>';
+    Panel.ac(html + secimler, renk);
+    history.replaceState(null, "", "#" + id);
+    if(!ilVar) Ortak.betikYukle("veri/il-sonuclari.js").then(()=>{
+      const yer = govde.querySelector('.p-hk[data-id="'+id+'"]');
+      if(yer) yer.innerHTML = SM.haritaKunyeHTML(id, SANDIK, window.IL_SONUCLARI);
+    }, ()=>{});
+  }
+
+  chart.addEventListener("click",ev=>{
+    const k=ev.target.closest(".kart"); if(!k) return;
+    ac(k.dataset.id);
+  });
+  govde.addEventListener("click",ev=>{
+    const g=ev.target.closest("[data-git]"); if(!g) return;
+    ac(g.dataset.git);
+    const hedef=chart.querySelector('[data-id="'+g.dataset.git+'"]');
+    if(hedef){ Panel.odakHedefi(hedef); hedef.scrollIntoView({block:"center",inline:"center",behavior:"smooth"}); }
+  });
+
+  /* ---- araç çubuğu: arama + yıl kaydırıcı + temizle ---- */
+  let YMIN=9999, YMAX=0;
+  N.forEach(n=>{ const yr=parseYil(n.yil); if(yr.bas<YMIN) YMIN=yr.bas; if(yr.bit>YMAX) YMAX=yr.bit; });
+
+  const araInput=document.getElementById("ara");
+  araInput.addEventListener("input",()=>{ arama=araInput.value.trim(); filtreUygula(); });
+
+  const yilKaydirici=document.getElementById("yilKaydirici");
+  const yilDeger=document.getElementById("yilDeger");
+  yilKaydirici.min=YMIN; yilKaydirici.max=YMAX; yilKaydirici.value=YMAX;
+  yilDeger.textContent=YMAX;
+  yilKaydirici.addEventListener("input",()=>{
+    const v=+yilKaydirici.value;
+    // en sağ uç "filtre yok" demektir; yoksa kaydırıcıyı geri çekince filtre kapanmıyordu
+    yilFiltre = (v===YMAX) ? null : v;
+    yilDeger.textContent=yilKaydirici.value;
+    filtreUygula();
+  });
+
+  document.getElementById("filtreTemizle").addEventListener("click",()=>{
+    arama=""; araInput.value="";
+    aileFiltre=null;
+    document.querySelectorAll(".lej.secili").forEach(x=>{x.classList.remove("secili"); x.setAttribute("aria-pressed","false");});
+    yilFiltre=null;
+    yilKaydirici.value=YMAX; yilDeger.textContent=YMAX;
+    filtreUygula();
+  });
+
+  /* ---- doğrudan bağlantı: index.html#<parti> ---- */
+  function hashAc(){
+    const id = Ortak.hashOku(location.hash);
+    if(!id || !bul(id)) return;
+    const el = chart.querySelector('[data-id="'+id+'"]');
+    const s = el.closest(".satir");
+    if(s.classList.contains("kapali")){
+      const b = document.querySelector('.banner[aria-controls="'+s.id+'"]');
+      Ortak.bantDurum(b, s, false); ciz();
+    }
+    el.scrollIntoView({block:"center", inline:"center"});
+    el.focus();
+    ac(id);
+  }
+  window.addEventListener("hashchange", hashAc);
+  hashAc();
+
+  ciz();
+  window.addEventListener("resize",()=>{clearTimeout(window.__t);window.__t=setTimeout(ciz,120)});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(ciz);
+  setTimeout(ciz,400);
+})();
+</script>

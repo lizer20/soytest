@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Sandık — Türkiye Siyasi Partileri Soyağacı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="1923'ten bugüne Türkiye'deki genel ve yerel seçimler, referandumlar, cumhurbaşkanlığı seçimleri ve hükümetler tek kronolojide.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sandık — Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:description" content="1923'ten bugüne seçimler, referandumlar ve hükümetler tek kronolojide.">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Türkiye Siyasi Partileri Soyağacı">
+<meta property="og:url" content="https://emrebiltekin.me/soyagaci/sandik.html">
+<meta property="og:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-sandik.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sandık sayfası: seçim kartları, meclis dağılımları ve hükümet şeritleri">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sandık — Türkiye Siyasi Partileri Soyağacı">
+<meta name="twitter:description" content="1923'ten bugüne seçimler, referandumlar ve hükümetler tek kronolojide.">
+<meta name="twitter:image" content="https://emrebiltekin.me/soyagaci/paylasim/kapak-sandik.png">
+<link rel="canonical" href="https://emrebiltekin.me/soyagaci/sandik.html">
+<link rel="icon" href="paylasim/simge.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="paylasim/simge-180.png">
+<meta name="theme-color" content="#151810">
+<link rel="stylesheet" href="ortak.css">
+<link rel="stylesheet" href="sandik.css">
+<link rel="stylesheet" href="harita.css">
+
+<nav class="ustmenu">
+  <div class="ustmenu-ic">
+    <a href="index.html" class="ustmenu-link">Ana sayfa</a>
+    <a href="sandik.html" class="ustmenu-link aktif">Sandık</a>
+    <a href="harita.html" class="ustmenu-link">Harita</a>
+    <a href="kaynakca.html" class="ustmenu-link">Kaynakça<span class="uzun"> &amp; metodoloji</span></a>
+  </div>
+</nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">1923 — 2026 · seçimler, referandumlar, hükümetler</div>
+    <h1>Sandık<br><em>seçimler ve hükümetler</em></h1>
+    <p class="lede">Genel ve yerel seçimler, referandumlar, cumhurbaşkanlığı seçimleri, ara seçimler ve
+      kurulan hükümetler; soyağacıyla aynı dönem bantlarında, tarih sırasıyla.</p>
+    <p class="disclaimer">İki kaynakla doğrulanamayan sayılar boş bırakılır ve gösterilmez; tahmin
+      yazılmaz. İttifak listelerinde YSK'nın resmî liste sonucu esas alınır; listeden seçilen başka
+      parti vekilleri ayrıca belirtilir.</p>
+  </header>
+
+  <div class="araclar">
+    <div class="turlar" id="turlar" role="group" aria-label="Kayıt türleri"></div>
+    <input id="ara" class="ara-kutu" type="search" placeholder="Seçim, hükümet, parti ya da kişi ara… (ör. Ecevit, ANAP, 1977)" autocomplete="off" aria-label="Seçim, hükümet, parti ya da kişi ara">
+    <span id="araSonuc" class="s-ara-sonuc" aria-live="polite"></span>
+    <div class="yil-filtre">
+      <span>yıl</span>
+      <input id="yilKaydirici" type="range" step="1" aria-label="Yıl filtresi">
+      <span id="yilDeger" class="yil-deger"></span>
+    </div>
+    <button id="filtreTemizle" class="temizle-buton" type="button">filtreleri temizle</button>
+  </div>
+
+  <p class="s-ipucu">kartlara ve satırlara tıklayınca seçimin ayrıntıları açılır · dönem bandına tıklayınca bant kapanır</p>
+
+  <nav class="s-atla" id="atla" aria-label="Dönemlere git"></nav>
+
+  <div id="rows"></div>
+
+  <div id="perde"></div>
+  <aside id="panel" role="dialog" aria-modal="true" aria-labelledby="p-kisa" inert aria-hidden="true">
+    <button id="kapat" aria-label="Kapat">✕</button>
+    <div id="p-govde"></div>
+  </aside>
+
+  <footer>
+    <p><b>Okuma notu.</b> Seçimler tarihlerine, hükümetler kuruluş tarihlerine göre soyağacındaki
+      dönem bantlarına ve her bantta soldaki yıl çizgisine yerleşir. Ayrıntılı sonucu bulunan seçimler
+      kart, hükümetler ve tek satırlık kayıtlar (TBMM'de cumhurbaşkanlığı seçimi, ara seçim, ülke geneli
+      sonucu bulunamayan yerel seçim) satır olarak görünür. Askerî yönetim dönemlerinde yapılanlar
+      kırmızı kesinti bandının altında, kesikli çerçevede toplanır.</p>
+    <p><b>Ölçüler ve kaynaklar.</b> Hangi sayının neye göre hesaplandığı
+      <a href="kaynakca.html">kaynakça &amp; metodoloji</a> sayfasındadır.</p>
+  </footer>
+</div>
+
+<script src="veri/partiler.js"></script>
+<script src="veri/sandik.js"></script>
+<script src="ortak.js"></script>
+<script src="sandik-mantik.js"></script>
+<script src="harita-mantik.js"></script>
+<script src="sandik-sayfa.js"></script>

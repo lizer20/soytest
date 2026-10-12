@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Sandık — SAHTE FİKSTÜR (test sayfası)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../ortak.css">
+<link rel="stylesheet" href="../../sandik.css">
+<div class="wrap">
+  <p class="disclaimer"><b>SAHTE VERİ.</b> Bu sayfa yalnızca sandik-sayfa.js'i sınamak içindir; sayılar uydurmadır.</p>
+  <div class="araclar">
+    <div class="turlar" id="turlar" role="group" aria-label="Kayıt türleri"></div>
+    <div class="yil-filtre"><span>yıl</span>
+      <input id="yilKaydirici" type="range" step="1" aria-label="Yıl filtresi">
+      <span id="yilDeger" class="yil-deger"></span></div>
+    <button id="filtreTemizle" class="temizle-buton" type="button">filtreleri temizle</button>
+  </div>
+  <nav class="s-atla" id="atla" aria-label="Dönemlere git"></nav>
+  <div id="rows"></div>
+  <div id="perde"></div>
+  <aside id="panel" role="dialog" aria-modal="true" aria-labelledby="p-kisa" inert aria-hidden="true">
+    <button id="kapat" aria-label="Kapat">✕</button>
+    <div id="p-govde"></div>
+  </aside>
+</div>
+<script src="../../veri/partiler.js"></script>
+<script src="../test/fikstur.js"></script>
+<script src="../../ortak.js"></script>
+<script src="../../sandik-mantik.js"></script>
+<script src="../../sandik-sayfa.js"></script>

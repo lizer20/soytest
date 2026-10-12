@@ -1,0 +1,74 @@
+/* Harita sayfası ve Sandık panelindeki küçük harita. Ortak bileşenler ortak.css'te. */
+:root{--h-bos:#ECECE6;--h-yok:#E4E5DC;--h-cizgi:#B9BCAE}
+.h-harita{display:block;width:100%;height:auto}
+.h-harita .h-il{stroke:#F5F5F0;stroke-width:.6;stroke-linejoin:round;transition:opacity .15s}
+.h-harita .h-bilinmiyor{stroke:var(--cizgi)}
+@media (hover:hover){
+  .h-harita:hover .h-il{opacity:.55}
+  .h-harita .h-il:hover{opacity:1;stroke:var(--murekkep);stroke-width:1.2}
+}
+.h-lejant{list-style:none;margin:0;padding:0;font-size:12.5px;color:#2A2E22}
+.h-lejant li{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px dotted var(--cizgi)}
+.h-lejant li:last-child{border-bottom:none}
+.h-lejant i{width:12px;height:12px;flex:none;border-radius:2px}
+.h-lejant .h-i-bos{background:var(--h-bos);border:1px solid var(--cizgi);box-sizing:border-box}
+.h-lejant .h-i-diger{background:#C9CBC0}
+.h-lejant .h-i-yok{background:repeating-linear-gradient(45deg,var(--h-yok) 0 3px,var(--h-cizgi) 3px 4.5px)}
+.h-lejant .h-taraf{border-bottom:none;padding-top:8px}
+.h-lejant .h-taraf b{font-weight:600}
+.h-lejant .h-not{font-size:11px;color:var(--soluk);border-bottom:none;padding-top:0}
+.h-lejant span{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--soluk)}
+.h-ozet{margin-bottom:14px}
+.h-ozet-cubuk{display:flex;height:12px;margin:6px 0 4px;background:var(--h-bos)}
+.h-ozet-cubuk span{display:block;height:100%}
+.h-ozet-cubuk span+span{margin-left:2px}
+.h-ozet .h-lejant b{font-weight:600}
+.h-ozet .h-lejant span{font-size:12px;color:#2A2E22}
+.h-ozet-karar{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soluk);margin-top:4px}
+.gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* sayfa */
+.h-araclar{max-width:1100px;margin:0 auto 14px}
+.h-secim{display:flex;align-items:center;gap:6px}
+.h-secim select{font-family:"IBM Plex Mono",monospace;font-size:12px;padding:5px 8px;border:1px solid var(--cizgi);
+  background:var(--kart);color:var(--murekkep)}
+.h-sahne{max-width:1100px;margin:0 auto;background:var(--kart);border:1px solid var(--cizgi);padding:16px 18px 14px}
+.h-baslik{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:10px}
+.h-baslik b{font-family:"Fraunces",serif;font-size:22px;font-weight:700}
+.h-baslik span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--soluk)}
+.h-baslik a{font-size:12.5px;color:#2A2E22;text-underline-offset:3px;text-decoration-color:var(--cizgi)}
+.h-duzen{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:18px;align-items:start}
+.h-yan .p-etiket{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--soluk);margin:0 0 6px}
+.h-yan .h-not{font-size:11.5px;color:var(--soluk);line-height:1.45;margin-top:10px}
+.h-bos-mesaj{padding:40px 10px;text-align:center;color:var(--soluk);font-size:13px}
+.h-ayrinti{margin-top:12px;font-size:12.5px}
+.h-ayrinti summary{cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--soluk)}
+.h-tablo{width:100%;border-collapse:collapse;margin-top:8px}
+.h-tablo th,.h-tablo td{text-align:left;padding:4px 6px;border-bottom:1px dotted var(--cizgi);font-weight:400}
+.h-tablo thead th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--soluk)}
+.h-tablo tbody th{font-weight:600}
+.h-secili{min-height:2.6em;margin-top:8px;padding:7px 10px;font-size:13px;line-height:1.4;color:#2A2E22;
+  background:rgba(21,24,16,.04);border-left:3px solid var(--cizgi)}
+.h-secili:empty{display:none}
+.h-harita .h-il.h-secik{stroke:var(--murekkep);stroke-width:1.6;opacity:1}
+.h-harita .h-il{cursor:pointer}
+@media (max-width:560px){
+  .h-secim select{min-height:38px}
+  .h-secim button{min-width:38px;min-height:38px}
+  .h-yan .p-etiket,.h-tablo thead th{font-size:11px}
+  .h-lejant li{padding:7px 0}
+  .h-ayrinti{overflow-x:auto}
+  .h-tablo{font-size:12px}
+  .h-tablo th,.h-tablo td{padding-left:4px;padding-right:4px}
+}
+@media (max-width:760px){
+  .h-duzen{grid-template-columns:1fr}
+  .h-sahne{padding:12px 10px}
+}
+
+/* Sandık panelindeki küçük harita */
+#panel .p-harita{margin:6px 0 4px}
+#panel .p-harita .h-lejant{margin-top:8px;font-size:12px}
+#panel .p-harita-bag{font-size:12px;margin-top:6px}
+#panel .p-harita-bag a{color:#2A2E22;text-underline-offset:3px;text-decoration-color:var(--cizgi)}
