@@ -53,3 +53,7 @@
 - [x] 2, 3, 4, 7 pencere gezinme / bağlantı / aşağı çekip kapatma / soyağacı araması (`8b06616`)
 - [x] 1 + 9 hızlı arama ve kısayollar (`hizli-ara.js`, `3e0ddc4`)
 - [x] 10 parti dizini (liste görünümü, `a913121`)
+- [x] 6 harita gezinme ve renk geçişi; 5, 8, 11 geçişler, başa dön, dönem özetleri (`878373d`)
+- [x] Gözden geçirme düzeltmeleri: kapalı pencere gizli, arama kutusu 400px, kaynakça, esc, denetim aracı (`9f85929`)
+- [ ] 12 gereksiz kod taraması
+- [ ] 13 son denetim ve değişiklik listesi
