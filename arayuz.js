@@ -57,7 +57,7 @@
   kutu.setAttribute("aria-label", "Sitede ara");
   kutu.innerHTML =
     '<div class="ha-ust"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.4 10.4 14.5 14.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
-    '<input class="ha-girdi" type="search" placeholder="Parti, kişi, seçim ya da hükümet ara…" autocomplete="off" spellcheck="false" ' +
+    '<input class="ha-girdi" type="text" enterkeyhint="go" placeholder="Parti, kişi, seçim ya da hükümet ara…" autocomplete="off" spellcheck="false" ' +
     'role="combobox" aria-expanded="true" aria-controls="haListe" aria-autocomplete="list" aria-label="Sitede ara">' +
     '<button type="button" class="ha-kapat" aria-label="Kapat">esc</button></div>' +
     '<div class="ha-liste" id="haListe" role="listbox" aria-label="Sonuçlar"></div>' +
@@ -215,8 +215,12 @@
   function kapat() {
     if (kutu.open) kutu.close();
   }
-  // esc yalnız aramayı kapatsın, arkadaki açık pencereyi değil
-  kutu.addEventListener("keydown", e => { if (e.key === "Escape") e.stopPropagation(); });
+  // esc ilk basışta aramayı kapatsın (kutudaki yazıyı silmekle kalmasın), arkadaki açık pencereyi değil
+  kutu.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    e.stopPropagation(); e.preventDefault();
+    kapat();
+  });
   kutu.addEventListener("close", () => {
     if (oncekiOdak && document.body.contains(oncekiOdak)) oncekiOdak.focus({ preventScroll: true });
   });

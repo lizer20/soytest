@@ -102,6 +102,9 @@
       o.panel.scrollTop = 0;
       // gezinirken odak bastığı düğmede kalır; ilk açılışta kapat düğmesine gider
       if (!zatenAcik || !o.panel.contains(document.activeElement)) o.kapatDugmesi.focus();
+      // açık pencerede içerik değişince (önceki / sonraki) yeni içerik hafifçe belirir
+      if (zatenAcik && o.govde.animate && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches))
+        o.govde.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 180, easing: "ease-out" });
     }
     function kapat() {
       if (!acikMi()) return;

@@ -3,7 +3,9 @@
 //   2. Sandık'ın bütün kayıt pencereleri, soyağacının bütün parti pencereleri ve bütün harita
 //      tablolarında değer yerine yazılmış "—" ya da "?" (boş veri gösterilmez kuralı)
 //   3. sayfalardaki ve pencerelerdeki iç bağlantılar: dosya var mı, # hedefi var mı
-//   4. (isteğe bağlı) EKRAN=klasör verilirse her sayfanın tam boy ekran görüntüsü
+//   4. arayüz: her sayfada hızlı arama sonuç veriyor mu; liste görünümü bütün partileri boş işaretsiz
+//      gösteriyor mu; pencerede önceki / sonraki gezinme hatasız mı
+//   5. (isteğe bağlı) EKRAN=klasör verilirse her sayfanın tam boy ekran görüntüsü
 // Çalıştırma:  NODE_PATH=$(npm root -g) node araclar/denetim/site.js
 // Chromium yolu gerekirse: PW_CHROMIUM=/opt/pw-browsers/chromium. Sorun yoksa çıkış kodu 0.
 const { chromium } = require("playwright");
@@ -90,13 +92,34 @@ function bosIsaretler(secici) {
     await topla("harita.html");
   }
 
+  // 4. arayüz
+  for (const s of SAYFALAR) {
+    await git(s, 500);
+    await p.keyboard.press("/"); await p.waitForTimeout(150);
+    await p.fill(".ha-girdi", "demirel"); await p.waitForTimeout(400);   // veri yoksa yüklenmesi beklenir
+    await p.fill(".ha-girdi", "demirel"); await p.waitForTimeout(100);
+    const n = await p.$$eval(".ha-sonuc", (l) => l.length);
+    if (!n) sorun.push("hızlı arama (" + s + "): sonuç yok");
+    await p.keyboard.press("Escape"); await p.waitForTimeout(150);
+    if (await p.evaluate(() => document.querySelector("dialog.ha").open)) sorun.push("hızlı arama (" + s + "): esc ile kapanmadı");
+  }
+  await git("index.html?gorunum=liste", 500);
+  const satir = await p.$$eval("#dizin tbody tr", (l) => l.length);
+  if (satir !== partiler.length) sorun.push("liste görünümü: " + satir + " satır, " + partiler.length + " parti");
+  const bosListe = await p.evaluate(bosIsaretler, "#dizin");
+  if (bosListe.length) sorun.push("liste görünümü: boş işaret " + JSON.stringify(bosListe.slice(0, 5)));
+  await git("sandik.html#" + kayitlar[0], 600);
+  for (let i = 0; i < 12; i++) await p.keyboard.press("ArrowRight");
+  await p.waitForTimeout(200);
+  if (!(await p.evaluate(() => document.getElementById("panel").classList.contains("acik")))) sorun.push("pencere gezinme: pencere kapandı");
+
   // 3. iç bağlantılar
   let denenen = 0;
   for (const [h, nerede] of bag) {
     if (/^(https?:|mailto:)/.test(h)) continue;
     denenen++;
     const [dosya, hedef] = h.split("#");
-    const f = dosya || nerede;
+    const f = (dosya || nerede).split("?")[0];
     if (!fs.existsSync(path.join(KOK, f))) { sorun.push("kırık bağlantı: " + h + " (" + nerede + ", dosya yok)"); continue; }
     if (!hedef) continue;
     await git(f, 250);
