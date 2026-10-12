@@ -210,7 +210,7 @@
   .ara-kutu{
     font-family:"IBM Plex Sans",sans-serif;font-size:13px;color:var(--murekkep);
     background:var(--kart);border:1px solid var(--cizgi);padding:7px 10px;
-    width:330px;max-width:60vw;
+    width:400px;max-width:60vw;
   }
   .ara-kutu::placeholder{color:var(--soluk)}
   .ara-sonuc{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--soluk);min-width:5em}
@@ -289,10 +289,11 @@
     position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);
     background:var(--kart);border-left:6px solid var(--aile,#151810);
     z-index:50;overflow-y:auto;overscroll-behavior:contain;padding:0 24px 40px;
-    transform:translateX(102%);transition:transform .26s cubic-bezier(.4,0,.2,1);
-    box-shadow:-6px 0 0 rgba(21,24,16,.12);
+    transform:translateX(102%);box-shadow:-6px 0 0 rgba(21,24,16,.12);
+    /* kapalıyken kayma bitince tümden gizlenir (telefonda ekranın altında beklemesin) */
+    visibility:hidden;transition:transform .26s cubic-bezier(.4,0,.2,1),visibility 0s linear .26s;
   }
-  #panel.acik{transform:translateX(0)}
+  #panel.acik{transform:translateX(0);visibility:visible;transition:transform .26s cubic-bezier(.4,0,.2,1)}
 
   /* üst çubuk: önceki / sonraki kayıt, bağlantı, kapat; pencere kayarken üstte kalır */
   #panel .p-ust{
