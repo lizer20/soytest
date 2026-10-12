@@ -103,6 +103,41 @@
   #chart.odak path.kenar{opacity:.07}
   #chart.odak path.kenar.aktif{opacity:1;stroke-width:2.6}
 
+  /* liste görünümü: parti dizini */
+  .gorunum .tur-dugme{min-width:58px}
+  .liste-ipucu{display:none}
+  .mobil-yana{display:none}
+  body.liste .masaustu-ipucu,body.liste .mobil-ipucu,body.liste .scroller,body.liste .lejant2{display:none}
+  body.liste .liste-ipucu{display:block}
+  .dizin{max-width:1100px;margin:0 auto}
+  .dz-tablo{width:100%;border-collapse:collapse;background:var(--kart);border:1px solid var(--cizgi);
+    font-size:13px;font-variant-numeric:tabular-nums}
+  .dz-tablo th,.dz-tablo td{text-align:left;padding:9px 12px;border-bottom:1px dotted var(--cizgi);white-space:nowrap}
+  .dz-tablo thead th{position:sticky;top:0;z-index:2;padding:0;background:var(--kart);border-bottom:1px solid var(--murekkep)}
+  .dz-tablo thead button{
+    display:block;width:100%;padding:11px 12px 9px;background:none;border:0;cursor:pointer;text-align:inherit;
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--soluk);
+  }
+  .dz-tablo thead button:hover,.dz-tablo th[aria-sort] button{color:var(--murekkep)}
+  .dz-tablo th[aria-sort] button{font-weight:600}
+  .dz-tablo th[aria-sort="ascending"] button::after{content:" ↑"}
+  .dz-tablo th[aria-sort="descending"] button::after{content:" ↓"}
+  .dz-tablo thead button:focus-visible{outline:2px solid var(--murekkep);outline-offset:-2px}
+  .dz-tablo tbody tr{cursor:pointer;transition:background .12s}
+  .dz-tablo tbody tr:hover{background:rgba(21,24,16,.045)}
+  .dz-tablo tbody tr:focus-visible{outline:2px solid var(--murekkep);outline-offset:-2px}
+  .dz-tablo tbody td:first-child{border-left:4px solid var(--aile)}
+  .dz-tablo .dz-sayi{text-align:right}
+  .dz-tablo td.dz-sayi{font-family:"IBM Plex Mono",monospace;font-size:12px}
+  .dz-parti{white-space:normal!important;min-width:230px}
+  .dz-parti b{font-family:"Fraunces",serif;font-size:15.5px;font-weight:700;color:var(--aile);margin-right:9px;letter-spacing:-.01em}
+  .dz-parti span{font-size:12px;color:#2A2E22}
+  .dz-gelenek{font-size:12px;color:var(--soluk)}
+  .dz-gelenek i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+  .dz-yil{font-family:"IBM Plex Mono",monospace;font-size:12px}
+  .dz-oy small{font-size:11px;color:var(--soluk);margin-left:7px}
+  .dz-not{font-size:12px;color:var(--soluk);max-width:80ch;margin:10px 0 0}
+
   @media (max-width:560px){
     .kart .sembol,.kart .not{font-size:12px}
   }
@@ -116,6 +151,15 @@
 
     .satir{display:flex;flex-direction:column;gap:10px}
     .hucre:empty{display:none}
+
+    /* telefonda tablo yatay kayar, parti sütunu solda sabit kalır; gelenek rengi kenarda */
+    .dz-kap{overflow-x:auto;margin:0 -14px;padding:0 14px}
+    .dz-tablo thead th{position:static}
+    .dz-tablo td:first-child,.dz-tablo th:first-child{position:sticky;left:0;z-index:1;background:var(--kart)}
+    .dz-gelenek-s{display:none}
+    .mobil-yana{display:inline}
+    .dz-parti{min-width:180px}
+    .dz-parti b{display:block;margin:0 0 1px}
 
   }
 </style>
@@ -145,6 +189,10 @@
   </div>
 
   <div class="araclar">
+    <div class="turlar gorunum" role="group" aria-label="Görünüm">
+      <button type="button" class="tur-dugme" data-gorunum="sema" aria-pressed="true">şema</button>
+      <button type="button" class="tur-dugme" data-gorunum="liste" aria-pressed="false">liste</button>
+    </div>
     <input id="ara" class="ara-kutu" type="search" placeholder="Parti ya da genel başkan ara… (ör. AKP, Demirel)" autocomplete="off" aria-label="Parti ya da genel başkan ara">
     <span id="araSonuc" class="ara-sonuc" aria-live="polite"></span>
     <div class="yil-filtre">
@@ -157,6 +205,7 @@
 
   <div class="kaydir-ipucu masaustu-ipucu">↔ yatay kaydırın · üstüne gelince bağlar aydınlanır · <b>tıklayınca partinin künyesi açılır</b></div>
   <div class="kaydir-ipucu mobil-ipucu">dönem başlığına dokunarak açıp kapatın · <b>karta dokununca künyesi açılır</b></div>
+  <div class="kaydir-ipucu liste-ipucu">sütun başlığına tıklayınca sıralanır<span class="mobil-yana"> · tablo yana kayar</span> · <b>satıra tıklayınca partinin künyesi açılır</b></div>
 
   <div class="scroller">
     <div id="chart">
@@ -164,6 +213,7 @@
       <div id="rows"></div>
     </div>
   </div>
+  <div id="dizin" class="dizin" hidden></div>
 
   <div id="perde"></div>
   <aside id="panel" role="dialog" aria-modal="true" aria-labelledby="p-kisa" inert aria-hidden="true">
@@ -330,6 +380,7 @@
       el.classList.toggle("sonuc",e);
       if(e) bulunan++;
     });
+    dizinSuz();
     document.getElementById("araSonuc").textContent = filtreAktif ? (bulunan ? bulunan+" parti" : "eşleşen parti yok") : "";
     let duzenDegisti=false;
     if(filtreAktif){
@@ -383,16 +434,17 @@
   const Panel = Ortak.panelKur({
     panel, perde, govde,
     kapatDugmesi: document.getElementById("kapat"),
-    odakSecici: ".kart",
+    odakSecici: ".kart, .dz-tablo tr",
     kapaninca: () => history.replaceState(null, "", location.pathname + location.search),
     // önceki / sonraki: şemadaki sırayla (dönem, sonra gelenek); süzgeç varken yalnız eşleşen kartlar
     gezinti: {
       komsu(id, yon){
-        const l=[...chart.querySelectorAll(filtreAktif?".kart.sonuc":".kart")];
+        const l = gorunum==="liste" ? [...dizin.querySelectorAll("tbody tr:not([hidden])")]
+          : [...chart.querySelectorAll(filtreAktif?".kart.sonuc":".kart")];
         const i=l.findIndex(el=>el.dataset.id===id), h=i<0?null:l[i+yon];
         return h ? {id:h.dataset.id, ad:bul(h.dataset.id).kisa} : null;
       },
-      git(id){ ac(id); Panel.odakHedefi(kartaGit(id,true)); }
+      git(id){ ac(id); Panel.odakHedefi(ogeyeGit(id,true)); }
     }
   });
 
@@ -445,10 +497,16 @@
   govde.addEventListener("click",ev=>{
     const g=ev.target.closest("[data-git]"); if(!g) return;
     ac(g.dataset.git);
-    Panel.odakHedefi(kartaGit(g.dataset.git,true));
+    Panel.odakHedefi(ogeyeGit(g.dataset.git,true));
   });
-  // kartın dönemi kapalıysa açılır, kart ekranın ortasına getirilir (pencerenin arkasında)
-  function kartaGit(id,yumusak){
+  // şemada kartın dönemi kapalıysa açılır, kart ekranın ortasına getirilir (pencerenin arkasında);
+  // listede satır görünür alana getirilir
+  function ogeyeGit(id,yumusak){
+    if(gorunum==="liste"){
+      const tr=dizin.querySelector('tr[data-id="'+id+'"]');
+      if(tr) tr.scrollIntoView({block:"nearest",behavior:yumusak?"smooth":"auto"});
+      return tr;
+    }
     const el=chart.querySelector('[data-id="'+id+'"]'); if(!el) return null;
     const s=el.closest(".satir");
     if(s.classList.contains("kapali")){
@@ -486,11 +544,95 @@
     filtreUygula();
   });
 
+  /* ---- liste görünümü (parti dizini): bütün partiler sıralanabilir bir tabloda. Süzgeçler (arama, gelenek,
+     yıl) iki görünümde ortaktır. Sayılar yalnız kayıtlı veriden türetilir; değeri olmayan hücre boş kalır. ---- */
+  const dizin=document.getElementById("dizin");
+  let gorunum="sema", dizinSira={k:"yil", yon:1};
+  const DZ=N.map(n=>Object.assign({n, yr:parseYil(n.yil)}, SM.dizinSatiri(n.id, SANDIK)));
+  const SUTUN=[
+    {k:"parti", ad:"Parti", d:x=>x.n.kisa},
+    {k:"gelenek", ad:"Gelenek", d:x=>x.n.aile, s:"dz-gelenek-s"},
+    {k:"yil", ad:"Yıllar", d:x=>x.yr.bas*10000+x.yr.bit},
+    {k:"durum", ad:"Durum", d:x=>ROZET[x.n.durum][0]},
+    {k:"genel", ad:"Genel seçim", d:x=>x.genel||null, sayi:true},
+    {k:"oy", ad:"En yüksek oy", d:x=>x.enIyi?x.enIyi.oy:null, sayi:true},
+    {k:"hukumet", ad:"Hükümet", d:x=>x.hukumet||null, sayi:true}
+  ];
+  function dizinKur(){
+    const say=d=>N.filter(n=>n.durum===d).length;
+    dizin.innerHTML='<div class="dz-kap"><table class="dz-tablo"><caption class="gizli">Partiler</caption><thead><tr>'+
+      SUTUN.map(c=>'<th scope="col" class="'+(c.sayi?"dz-sayi ":"")+(c.s||"")+'" data-k="'+c.k+'"><button type="button">'+c.ad+'</button></th>').join("")+
+      '</tr></thead><tbody>'+DZ.map(x=>{
+        const n=x.n, r=ROZET[n.durum], a=AILE[n.aile];
+        return '<tr data-id="'+n.id+'" tabindex="0" style="--aile:'+a.ham+'">'+
+          '<td class="dz-parti"><b>'+n.kisa+'</b><span>'+n.ad+'</span></td>'+
+          '<td class="dz-gelenek dz-gelenek-s"><i style="background:'+a.ham+'"></i>'+a.ad+'</td>'+
+          '<td class="dz-yil">'+n.yil+'</td>'+
+          '<td><span class="rozet '+r[1]+'">'+r[0]+'</span></td>'+
+          '<td class="dz-sayi">'+(x.genel||"")+'</td>'+
+          '<td class="dz-sayi dz-oy">'+(x.enIyi?Ortak.yuzdeYaz(x.enIyi.oy)+'<small>'+x.enIyi.kayit.tarih.slice(0,4)+'</small>':"")+'</td>'+
+          '<td class="dz-sayi">'+(x.hukumet||"")+'</td></tr>';
+      }).join("")+'</tbody></table></div>'+
+      '<p class="dz-not">'+N.length+' parti: '+say("faal")+' faal, '+say("kapatildi")+' kapatıldı, '+say("kapandi")+' feshedildi, '+
+      say("katildi")+' devredildi. <b>Genel seçim</b>, sitede sonucu kayıtlı genel seçimlerin sayısıdır (başka partinin '+
+      'listesinden girilenler dahil; sonuçlarda "diğer" içinde kalan seçimler sayılamaz). <b>En yüksek oy</b> yalnız oy oranı '+
+      'kayıtlı genel seçimlerden seçilir (1923–1957 seçimlerinde parti oy oranları kayıtlı değildir); <b>hükümet</b> sayısı hükümet kayıtlarındaki ortaklardan hesaplanır. Boş hücre, kayıtlı değer olmadığını gösterir.</p>';
+    dizin.querySelector("thead").addEventListener("click",e=>{
+      const th=e.target.closest("th"); if(!th) return;
+      const c=SUTUN.find(x=>x.k===th.dataset.k);
+      dizinSira = dizinSira.k===c.k ? {k:c.k, yon:-dizinSira.yon} : {k:c.k, yon:c.sayi?-1:1};
+      dizinSirala();
+    });
+    const tb=dizin.querySelector("tbody");
+    tb.addEventListener("click",e=>{ const tr=e.target.closest("tr"); if(tr) ac(tr.dataset.id); });
+    tb.addEventListener("keydown",e=>{
+      const tr=e.target.closest("tr");
+      if(tr&&(e.key==="Enter"||e.key===" ")){ e.preventDefault(); ac(tr.dataset.id); }
+    });
+    dizinSirala();
+  }
+  // boş değerler yöne bakılmaksızın sona; eşitlikte kuruluş sırası
+  function dizinSirala(){
+    const c=SUTUN.find(x=>x.k===dizinSira.k), tb=dizin.querySelector("tbody");
+    const sirali=DZ.slice().sort((a,b)=>{
+      const x=c.d(a), y=c.d(b);
+      if(x==null||y==null) return (x==null)-(y==null) || a.yr.bas-b.yr.bas;
+      const f=typeof x==="string" ? x.localeCompare(y,"tr") : x-y;
+      return f*dizinSira.yon || a.yr.bas-b.yr.bas;
+    });
+    sirali.forEach(x=>tb.appendChild(tb.querySelector('[data-id="'+x.n.id+'"]')));
+    dizin.querySelectorAll("thead th").forEach(th=>{
+      if(th.dataset.k===c.k) th.setAttribute("aria-sort", dizinSira.yon>0?"ascending":"descending");
+      else th.removeAttribute("aria-sort");
+    });
+  }
+  function dizinSuz(){
+    if(!dizin.firstChild) return;
+    dizin.querySelectorAll("tbody tr").forEach(tr=>{ tr.hidden = filtreAktif && !eslesiyorMu(bul(tr.dataset.id)); });
+  }
+  function gorunumSec(g, adresYaz){
+    gorunum=g;
+    document.body.classList.toggle("liste", g==="liste");
+    document.querySelectorAll("[data-gorunum]").forEach(d=>d.setAttribute("aria-pressed", String(d.dataset.gorunum===g)));
+    dizin.hidden = g!=="liste";
+    if(g==="liste"){ if(!dizin.firstChild) dizinKur(); dizinSuz(); }
+    else ciz();
+    if(adresYaz){
+      const u=new URLSearchParams(location.search);
+      if(g==="liste") u.set("gorunum","liste"); else u.delete("gorunum");
+      history.replaceState(null,"",location.pathname+(u.toString()?"?"+u:"")+location.hash);
+    }
+  }
+  document.querySelector(".gorunum").addEventListener("click",e=>{
+    const d=e.target.closest("[data-gorunum]"); if(d) gorunumSec(d.dataset.gorunum, true);
+  });
+  if(new URLSearchParams(location.search).get("gorunum")==="liste") gorunumSec("liste", false);
+
   /* ---- doğrudan bağlantı: index.html#<parti> ---- */
   function hashAc(){
     const id = Ortak.hashOku(location.hash);
     if(!id || !bul(id)) return;
-    kartaGit(id,false).focus({preventScroll:true});
+    ogeyeGit(id,false).focus({preventScroll:true});
     ac(id);
   }
   window.addEventListener("hashchange", hashAc);

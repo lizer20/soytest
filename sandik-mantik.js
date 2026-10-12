@@ -516,6 +516,19 @@
           ? '<div class="p-dipnot">2018\'den beri kurulan cumhurbaşkanlığı hükümetleri bir partinin hükümeti olarak kaydedilmediği için bu listede yok.</div>' : "");
     }
 
+    /* ---- parti dizini (soyağacının liste görünümü): yalnız kayıtlı veriden türetilir. Genel seçim sayısı
+       pencerede listelenen seçimlerle aynıdır (başka partinin listesinden girilenler dahil); "Diğer" içinde
+       kalan partiler sayılamaz. En yüksek oy yalnız oyu bilinen seçimlerden seçilir. ---- */
+    function dizinSatiri(id, S) {
+      const s = partininSecimleri(id, S);
+      let enIyi = null;
+      s.genel.forEach(x => {
+        const oy = x.satir ? oyDegeri(x.satir, x.kayit) : null;
+        if (oy != null && (!enIyi || oy > enIyi.oy)) enIyi = { oy, kayit: x.kayit };
+      });
+      return { genel: s.genel.length, enIyi, hukumet: S.hukumetler.filter(h => (h.partiler || []).includes(id)).length };
+    }
+
     /* ---- arama: kayıt başına aranacak metin (Türkçe harfler sadeleştirilir: "ozal" → Özal) ---- */
     function aramaNormal(t) {
       return String(t || "").toLocaleLowerCase("tr").replace(/[çğıöşüâîû]/g, c => ({ ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u", â: "a", î: "i", û: "u" })[c]);
@@ -736,7 +749,7 @@
              donemBul, kronoloji, sonrakiHukumetler, partininSecimleri,
              kacis, rozetHTML, genelBaskanlarHTML, cubukHTML, meclisGruplari, meclisSVG, kartHTML, panelHTML, kunyeSecimleriHTML,
              kartMi, genisKartMi, yilGruplari, olayHTML, hukumetSatiriHTML, hukumetId, hukumetAdi, hukumetPanelHTML,
-             sure, sureYaz, gunYaz, partiHukumetleriHTML, aramaNormal, aramaMetni, aramaEslesir,
+             sure, sureYaz, gunYaz, partiHukumetleriHTML, dizinSatiri, aramaNormal, aramaMetni, aramaEslesir,
              birinciIller, haritaKunyeHTML, yilEki };
   }
   return { olustur };

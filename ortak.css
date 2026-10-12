@@ -64,6 +64,8 @@
   }
 
   *{box-sizing:border-box}
+  /* yalnız ekran okuyucular için */
+  .gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   body{margin:0}
   .wrap{
     background:var(--kagit);

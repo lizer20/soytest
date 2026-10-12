@@ -25,7 +25,6 @@
 .h-ozet .h-lejant b{font-weight:600}
 .h-ozet .h-lejant span{font-size:12px;color:#2A2E22}
 .h-ozet-karar{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soluk);margin-top:4px}
-.gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* sayfa */
 .h-araclar{max-width:1100px;margin:0 auto 14px}

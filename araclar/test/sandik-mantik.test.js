@@ -115,3 +115,16 @@ test("kronoloji aynı tarihte seçimi hükümetten önce koyar", () => {
                              bitis: null, tip: "tek-parti", bitisNedeni: null }] };
   assert.deepEqual(M.kronoloji(S).bantlar[6].ogeler.map(x => x.tur), ["secim", "hukumet"]);
 });
+
+test("dizinSatiri genel seçim sayısını, oyu bilinen en yüksek oyu ve hükümet sayısını verir", () => {
+  const d = M.dizinSatiri("dsp", F);
+  assert.equal(d.genel, 2);                       // 1999 kendi listesi + 2002 başka partinin listesinden
+  assert.equal(d.enIyi.kayit.id, "1999-04-genel");
+  assert.ok(Math.abs(d.enIyi.oy - 300 / 700 * 100) < 1e-9);
+  assert.equal(d.hukumet, 1);
+  const c = M.dizinSatiri("chp23", F);             // oyu bilinmeyen seçim en yüksek oy sayılmaz
+  assert.equal(c.genel, 1);
+  assert.equal(c.enIyi, null);
+  assert.equal(c.hukumet, 0);
+  assert.deepEqual(M.dizinSatiri("tcf", F), { genel: 0, enIyi: null, hukumet: 0 });
+});
