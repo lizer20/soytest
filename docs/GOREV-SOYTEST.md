@@ -49,4 +49,7 @@
 
 ## İlerleme
 
-- [x] Kopya (`006731d`), görev kaydı
+- [x] Kopya (`006731d`), görev kaydı; Pages açık: https://emrebiltekin.me/soytest/
+- [x] 2, 3, 4, 7 pencere gezinme / bağlantı / aşağı çekip kapatma / soyağacı araması (`8b06616`)
+- [x] 1 + 9 hızlı arama ve kısayollar (`hizli-ara.js`, `3e0ddc4`)
+- [x] 10 parti dizini (liste görünümü, `a913121`)
