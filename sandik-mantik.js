@@ -675,14 +675,16 @@
       if (tur === "den") return y + "'" + (/[çfhkpsşt]/.test(sonHarf) ? "t" : "d") + (kalin ? "an" : "en");
       return y + "'" + (unluyleBiter ? "y" : "") + (kalin ? "a" : "e");   // yönelme: 'e / 'ye / 'a / 'ya
     }
+    // bilinmeyen yıl "?" diye yazılmaz: yalnız başlangıç biliniyorsa "1955'ten", yalnız bitiş biliniyorsa "1958'e kadar"
+    function baskanYili(x) {
+      return x.gorevde ? (x.bas ? x.bas + " – görevde" : "görevde")
+        : x.bas == null && x.bit == null ? "" : x.bas === x.bit ? x.bas
+        : x.bit == null ? yilEki(x.bas, "den") : x.bas == null ? yilEki(x.bit, "e") + " kadar" : x.bas + " – " + x.bit;
+    }
     function genelBaskanlarHTML(id, GB) {
       const l = GB && GB[id];
       if (!l || !l.length) return "";
-      // bilinmeyen yıl "?" diye yazılmaz: yalnız başlangıç biliniyorsa "1955'ten", yalnız bitiş biliniyorsa "1958'e kadar"
-      const yil = x => x.gorevde ? (x.bas ? x.bas + " – görevde" : "görevde")
-        : x.bas == null && x.bit == null ? "" : x.bas === x.bit ? x.bas
-        : x.bit == null ? yilEki(x.bas, "den") : x.bas == null ? yilEki(x.bit, "e") + " kadar" : x.bas + " – " + x.bit;
-      const satirlar = l.map(x => "<li><b>" + kacis(x.ad) + "</b><span>" + yil(x) +
+      const satirlar = l.map(x => "<li><b>" + kacis(x.ad) + "</b><span>" + baskanYili(x) +
         (x.not ? '<em class="p-bnot">' + kacis(x.not) + "</em>" : "") + "</span></li>");
       return liste(l.every(x => / ve /.test(x.ad)) ? "Eş genel başkanlar" : "Genel başkanlar", satirlar);
     }
@@ -730,7 +732,7 @@
     }
 
     return { BAGIMSIZ, DIGER, NOTR, KESINTI, TUR_ETIKET, TUR_AD, BITIS_ETIKET,
-             partiAdi, oyDegeri, katilimDegeri, siralaGenel, baslikGenel, meclisDurumu,
+             partiAdi, oyDegeri, katilimDegeri, siralaGenel, baslikGenel, meclisDurumu, kartRengi, hukumetRengi, baskanYili,
              donemBul, kronoloji, sonrakiHukumetler, partininSecimleri,
              kacis, rozetHTML, genelBaskanlarHTML, cubukHTML, meclisGruplari, meclisSVG, kartHTML, panelHTML, kunyeSecimleriHTML,
              kartMi, genisKartMi, yilGruplari, olayHTML, hukumetSatiriHTML, hukumetId, hukumetAdi, hukumetPanelHTML,
