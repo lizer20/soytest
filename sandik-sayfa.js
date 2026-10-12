@@ -61,7 +61,9 @@
     // kesinti bandı dönemin sonunda değil, kendi tarihinde durur (spesifikasyon §6.3)
     const once = k ? ogeler.filter(o => o.tarih < k.tarih) : ogeler;
     const sonra = k ? ogeler.filter(o => o.tarih >= k.tarih) : [];
-    let html = !ogeler.length && !kap.length ? '<p class="s-bos">bu dönem için henüz kayıt yok</p>' : "";
+    const ozet = M.donemOzeti(ogeler.concat(kap));
+    let html = ozet ? '<p class="s-donem-ozet">' + ozet + "</p>" : "";
+    if (!ogeler.length && !kap.length) html += '<p class="s-bos">bu dönem için henüz kayıt yok</p>';
     html += yillarHTML(once);
     if (k) {
       html += '<div class="banner kesinti"><span class="yil">⚡</span><span class="ad">' + M.kacis(k.metin) + "</span></div>";
@@ -166,7 +168,7 @@
     rows.querySelectorAll(".s-donem").forEach(d => {
       const bos = !!ara && !d.querySelector(".s-oge:not([hidden])");
       d.hidden = bos; bantBul(d).hidden = bos;
-      d.querySelectorAll(".banner.kesinti, .s-bos").forEach(b => { b.hidden = !!ara; });
+      d.querySelectorAll(".banner.kesinti, .s-bos, .s-donem-ozet").forEach(b => { b.hidden = !!ara; });
     });
     if (araSonuc) araSonuc.textContent = ara ? (bulunan ? bulunan + " sonuç" : "sonuç yok") : "";
     temizle.classList.toggle("aktif", yilFiltre !== null || acikTurler.size < TURLER.length || !!ara);

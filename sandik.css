@@ -24,6 +24,8 @@
 .s-donem.kapali{display:none}
 .s-donem{padding:2px 0 8px}
 .s-bos{font-size:12.5px;color:var(--soluk);font-style:italic;margin:0 0 14px}
+/* dönem özeti: bandın hemen altında, yıl sütununun hizasında */
+.s-donem-ozet{margin:-4px 0 16px 80px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.03em;color:var(--soluk)}
 .s-kap{border:1px dashed #7A1509;padding:12px 12px 0;margin:-6px 0 16px;background:rgba(122,21,9,.025)}
 
 /* ---- yıl çizelgesi: solda yıl, sağda o yılın kartları ve satırları ---- */
@@ -229,6 +231,7 @@
 }
 @media (max-width:560px){
   .s-yil{grid-template-columns:1fr}
+  .s-donem-ozet{margin-left:0;font-size:11.5px;line-height:1.5}
   .s-yil-no{border-right:none;text-align:left;padding:4px 0 8px;display:flex;align-items:center;gap:10px;font-size:15px}
   .s-yil-no::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--murekkep);flex:none}
   .s-yil-no::after{position:static;flex:1;height:0;width:auto;border-radius:0;border-top:1px solid var(--cizgi);

@@ -107,7 +107,7 @@
   .ustmenu-link.aktif{border-bottom-color:var(--kagit);font-weight:600}
   .ustmenu-link:focus-visible{outline:2px solid var(--kagit);outline-offset:-2px}
 
-  /* ---------- hızlı arama (hizli-ara.js): menü düğmesi ve arama kutusu ---------- */
+  /* ---------- hızlı arama (arayuz.js): menü düğmesi ve arama kutusu ---------- */
   .ustmenu-ara{
     margin-left:auto;display:flex;align-items:center;gap:7px;background:none;border:0;cursor:pointer;
     color:var(--kagit);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.09em;
@@ -169,6 +169,22 @@
     font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--soluk);
   }
   @media (hover:none){ .ha-alt,.ha-kisayol,.ustmenu-ara kbd{display:none} }
+
+  /* ---------- başa dön düğmesi (arayuz.js) ---------- */
+  .basa-don{
+    position:fixed;right:18px;bottom:18px;z-index:30;width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    background:var(--murekkep);color:var(--kagit);border:0;box-shadow:0 3px 0 rgba(21,24,16,.18);
+    opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s;
+  }
+  .basa-don.gorunur{opacity:.88;transform:none;pointer-events:auto}
+  .basa-don:hover{opacity:1}
+  .basa-don:focus-visible{outline:2px solid var(--murekkep);outline-offset:3px}
+
+  /* sayfalar arası yumuşak geçiş (destekleyen tarayıcılarda); üst menü yerinde kalır */
+  @view-transition{navigation:auto}
+  .ustmenu{view-transition-name:ustmenu}
+  @media (prefers-reduced-motion:reduce){ @view-transition{navigation:none} }
 
   /* ---------- footer ---------- */
   footer{

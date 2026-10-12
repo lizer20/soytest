@@ -1,8 +1,34 @@
-/* Hızlı arama: her sayfada üst menüdeki düğme, "/" ya da Ctrl+K ile açılır. Partiler, genel başkanlar,
-   seçimler ve hükümetler tek kutuda aranır; sonuç seçilince ilgili sayfada penceresi açılır.
-   Sayfada olmayan veri dosyaları kutu ilk açıldığında <script> ile yüklenir (file:// uyumlu).
-   Gerektirir: window.Ortak. */
+/* Bütün sayfalarda ortak arayüz parçaları: hızlı arama ve başa dön düğmesi.
+   Hızlı arama: üst menüdeki düğme, "/" ya da Ctrl+K ile açılır. Partiler, genel başkanlar, seçimler ve
+   hükümetler tek kutuda aranır; sonuç seçilince ilgili sayfada penceresi açılır. Sayfada olmayan veri
+   dosyaları sayfa boşta kalınca <script> ile yüklenir (file:// uyumlu). Gerektirir: window.Ortak. */
 (function () {
+  /* ---- başa dön: sayfa iki ekran boyu aşağı kayınca sağ altta belirir ---- */
+  const yukari = document.createElement("button");
+  yukari.type = "button";
+  yukari.className = "basa-don";
+  yukari.setAttribute("aria-label", "Başa dön");
+  yukari.title = "Başa dön";
+  yukari.tabIndex = -1;
+  yukari.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 13V3.5M3.5 8 8 3.5 12.5 8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></svg>';
+  document.body.appendChild(yukari);
+  let yukariAcik = false;
+  function yukariBak() {
+    const acik = window.scrollY > window.innerHeight * 2;
+    if (acik === yukariAcik) return;
+    yukariAcik = acik;
+    yukari.classList.toggle("gorunur", acik);
+    yukari.tabIndex = acik ? 0 : -1;
+  }
+  window.addEventListener("scroll", yukariBak, { passive: true });
+  yukari.addEventListener("click", () => {
+    const azalt = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: azalt ? "auto" : "smooth" });
+    const ilk = document.querySelector(".ustmenu a");
+    if (ilk) ilk.focus({ preventScroll: true });
+  });
+  yukariBak();
+
   const O = window.Ortak;
   const menu = document.querySelector(".ustmenu-ic");
   if (!O || !menu) return;

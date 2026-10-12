@@ -516,6 +516,26 @@
           ? '<div class="p-dipnot">2018\'den beri kurulan cumhurbaşkanlığı hükümetleri bir partinin hükümeti olarak kaydedilmediği için bu listede yok.</div>' : "");
     }
 
+    /* ---- Sandık dönem özeti: dönemdeki seçim ve kurulan hükümet sayıları; dönemde kurulan hükümetlerin hepsi
+       sona erdiyse ortalama süreleri (tarihlerden). ogeler: kronoloji() bant ve askerî yönetim öğeleri. ---- */
+    const OZET_TUR = [["genel", "genel seçim"], ["yerel", "yerel seçim"], ["referandum", "referandum"],
+      ["cb", "cumhurbaşkanlığı seçimi"], ["ara", "ara seçim"]];
+    function donemOzeti(ogeler) {
+      const say = {};
+      ogeler.forEach(o => {
+        if (o.tur !== "secim") return;
+        const t = o.kayit.tur.startsWith("cb") ? "cb" : o.kayit.tur;
+        say[t] = (say[t] || 0) + 1;
+      });
+      const hk = ogeler.filter(o => o.tur === "hukumet").map(o => o.hukumet);
+      const secim = OZET_TUR.filter(t => say[t[0]]).map(t => say[t[0]] + " " + t[1]);
+      const p = [];
+      if (secim.length) p.push(secim.join(", "));
+      if (hk.length) p.push(hk.length + " hükümet" + (hk.every(h => h.bitis)
+        ? ", ortalama süre " + gunYaz(Math.round(hk.reduce((t, h) => t + sure(h.baslangic, h.bitis).gun, 0) / hk.length)) : ""));
+      return p.join(" · ");
+    }
+
     /* ---- parti dizini (soyağacının liste görünümü): yalnız kayıtlı veriden türetilir. Genel seçim sayısı
        pencerede listelenen seçimlerle aynıdır (başka partinin listesinden girilenler dahil); "Diğer" içinde
        kalan partiler sayılamaz. En yüksek oy yalnız oyu bilinen seçimlerden seçilir. ---- */
@@ -749,7 +769,7 @@
              donemBul, kronoloji, sonrakiHukumetler, partininSecimleri,
              kacis, rozetHTML, genelBaskanlarHTML, cubukHTML, meclisGruplari, meclisSVG, kartHTML, panelHTML, kunyeSecimleriHTML,
              kartMi, genisKartMi, yilGruplari, olayHTML, hukumetSatiriHTML, hukumetId, hukumetAdi, hukumetPanelHTML,
-             sure, sureYaz, gunYaz, partiHukumetleriHTML, dizinSatiri, aramaNormal, aramaMetni, aramaEslesir,
+             sure, sureYaz, gunYaz, partiHukumetleriHTML, dizinSatiri, donemOzeti, aramaNormal, aramaMetni, aramaEslesir,
              birinciIller, haritaKunyeHTML, yilEki };
   }
   return { olustur };

@@ -128,3 +128,15 @@ test("dizinSatiri genel seçim sayısını, oyu bilinen en yüksek oyu ve hükü
   assert.equal(c.hukumet, 0);
   assert.deepEqual(M.dizinSatiri("tcf", F), { genel: 0, enIyi: null, hukumet: 0 });
 });
+
+test("donemOzeti seçimleri türe göre, hükümetleri ortalama süreleriyle sayar", () => {
+  const kr = M.kronoloji(F);
+  const hepsi = kr.bantlar.flatMap(b => b.ogeler).concat(...Object.values(kr.kaplar));
+  // fikstür: 3 genel, 1 yerel, 1 referandum; 2 hükümet (biri görevde → ortalama yazılmaz)
+  assert.equal(M.donemOzeti(hepsi), "3 genel seçim, 1 yerel seçim, 1 referandum · 2 hükümet");
+  const biten = [{ tur: "hukumet", hukumet: F.hukumetler[0] }];
+  assert.equal(M.donemOzeti(biten), "1 hükümet, ortalama süre " + M.gunYaz(M.sure("1999-05-28", "2002-11-18").gun));
+  assert.equal(M.donemOzeti([{ tur: "secim", kayit: { tur: "cb-tbmm" } }, { tur: "secim", kayit: { tur: "cb-halk" } }]),
+    "2 cumhurbaşkanlığı seçimi");
+  assert.equal(M.donemOzeti([]), "");
+});
