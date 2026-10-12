@@ -255,6 +255,3 @@
 .s-hukumet.s-ac:hover .s-hk-ac{text-decoration:underline;text-decoration-color:var(--cizgi);text-underline-offset:3px}
 #panel .p-lakap{font-family:"Fraunces",serif;font-weight:700;font-size:16px;color:var(--murekkep);margin-right:9px}
 .p-olaylar .s-olay.s-ac:hover{background:#ECECE4}
-/* arama */
-.s-ara-sonuc{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--soluk);min-width:5em}
-.s-ara-sonuc:empty{display:none}

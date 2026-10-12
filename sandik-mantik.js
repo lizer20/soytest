@@ -733,7 +733,7 @@
              partiAdi, oyDegeri, katilimDegeri, siralaGenel, baslikGenel, meclisDurumu,
              donemBul, kronoloji, sonrakiHukumetler, partininSecimleri,
              kacis, rozetHTML, genelBaskanlarHTML, cubukHTML, meclisGruplari, meclisSVG, kartHTML, panelHTML, kunyeSecimleriHTML,
-             kartMi, genisKartMi, yilGruplari, olayHTML, hukumetSatiriHTML, hukumetId, hukumetPanelHTML,
+             kartMi, genisKartMi, yilGruplari, olayHTML, hukumetSatiriHTML, hukumetId, hukumetAdi, hukumetPanelHTML,
              sure, sureYaz, gunYaz, partiHukumetleriHTML, aramaNormal, aramaMetni, aramaEslesir,
              birinciIller, haritaKunyeHTML, yilEki };
   }

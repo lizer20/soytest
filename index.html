@@ -146,6 +146,7 @@
 
   <div class="araclar">
     <input id="ara" class="ara-kutu" type="search" placeholder="Parti ya da genel başkan ara… (ör. AKP, Demirel)" autocomplete="off" aria-label="Parti ya da genel başkan ara">
+    <span id="araSonuc" class="ara-sonuc" aria-live="polite"></span>
     <div class="yil-filtre">
       <span>yıl</span>
       <input id="yilKaydirici" type="range" step="1" aria-label="Yıl filtresi">
@@ -306,14 +307,15 @@
       const yr=parseYil(n.yil);
       if(yilFiltre<yr.bas || yilFiltre>yr.bit) return false;
     }
-    if(arama){
-      const q=arama.toLocaleLowerCase("tr");
-      const gb=(window.GENEL_BASKANLAR||{})[n.id]||[];
-      const hedef=(n.kisa+" "+n.ad+" "+gb.map(x=>x.ad).join(" ")).toLocaleLowerCase("tr");
-      if(hedef.indexOf(q)===-1) return false;
-    }
+    if(arama && !SM.aramaEslesir(aranacak[n.id], arama)) return false;
     return true;
   }
+  // aranacak metin: kısa ad, tam ad, sembol ve genel başkanlar; Türkçe harfler sadeleşir ("ozal" → Özal)
+  const aranacak={};
+  N.forEach(n=>{
+    const gb=(window.GENEL_BASKANLAR||{})[n.id]||[];
+    aranacak[n.id]=SM.aramaNormal([n.kisa,n.ad,n.sembol||""].concat(gb.map(x=>x.ad)).join(" "));
+  });
 
   function filtreUygula(){
     filtreAktif=!!(arama || aileFiltre!==null || yilFiltre!==null);
@@ -322,10 +324,13 @@
       chart.classList.remove("odak");
       chart.querySelectorAll(".aktif,.komsu").forEach(x=>x.classList.remove("aktif","komsu"));
     }
+    let bulunan=0;
     chart.querySelectorAll(".kart").forEach(el=>{
-      const n=bul(el.dataset.id);
-      el.classList.toggle("sonuc",filtreAktif && eslesiyorMu(n));
+      const e=filtreAktif && eslesiyorMu(bul(el.dataset.id));
+      el.classList.toggle("sonuc",e);
+      if(e) bulunan++;
     });
+    document.getElementById("araSonuc").textContent = filtreAktif ? (bulunan ? bulunan+" parti" : "eşleşen parti yok") : "";
     let duzenDegisti=false;
     if(filtreAktif){
       document.querySelectorAll(".satir.kapali").forEach(s=>{
@@ -379,7 +384,16 @@
     panel, perde, govde,
     kapatDugmesi: document.getElementById("kapat"),
     odakSecici: ".kart",
-    kapaninca: () => history.replaceState(null, "", location.pathname + location.search)
+    kapaninca: () => history.replaceState(null, "", location.pathname + location.search),
+    // önceki / sonraki: şemadaki sırayla (dönem, sonra gelenek); süzgeç varken yalnız eşleşen kartlar
+    gezinti: {
+      komsu(id, yon){
+        const l=[...chart.querySelectorAll(filtreAktif?".kart.sonuc":".kart")];
+        const i=l.findIndex(el=>el.dataset.id===id), h=i<0?null:l[i+yon];
+        return h ? {id:h.dataset.id, ad:bul(h.dataset.id).kisa} : null;
+      },
+      git(id){ ac(id); Panel.odakHedefi(kartaGit(id,true)); }
+    }
   });
 
   function bul(id){ return N.find(n=>n.id===id); }
@@ -416,7 +430,7 @@
     const ilVar = !!window.IL_SONUCLARI;
     const secimler = SM.kunyeSecimleriHTML(id, SANDIK) + '<div class="p-hk" data-id="'+id+'">' +
       (ilVar ? SM.haritaKunyeHTML(id, SANDIK, window.IL_SONUCLARI) : "") + '</div>';
-    Panel.ac(html + secimler, renk);
+    Panel.ac(html + secimler, renk, id);
     history.replaceState(null, "", "#" + id);
     if(!ilVar) Ortak.betikYukle("veri/il-sonuclari.js").then(()=>{
       const yer = govde.querySelector('.p-hk[data-id="'+id+'"]');
@@ -431,9 +445,18 @@
   govde.addEventListener("click",ev=>{
     const g=ev.target.closest("[data-git]"); if(!g) return;
     ac(g.dataset.git);
-    const hedef=chart.querySelector('[data-id="'+g.dataset.git+'"]');
-    if(hedef){ Panel.odakHedefi(hedef); hedef.scrollIntoView({block:"center",inline:"center",behavior:"smooth"}); }
+    Panel.odakHedefi(kartaGit(g.dataset.git,true));
   });
+  // kartın dönemi kapalıysa açılır, kart ekranın ortasına getirilir (pencerenin arkasında)
+  function kartaGit(id,yumusak){
+    const el=chart.querySelector('[data-id="'+id+'"]'); if(!el) return null;
+    const s=el.closest(".satir");
+    if(s.classList.contains("kapali")){
+      Ortak.bantDurum(document.querySelector('.banner[aria-controls="'+s.id+'"]'), s, false); ciz();
+    }
+    el.scrollIntoView({block:"center",inline:"center",behavior:yumusak?"smooth":"auto"});
+    return el;
+  }
 
   /* ---- araç çubuğu: arama + yıl kaydırıcı + temizle ---- */
   let YMIN=9999, YMAX=0;
@@ -467,14 +490,7 @@
   function hashAc(){
     const id = Ortak.hashOku(location.hash);
     if(!id || !bul(id)) return;
-    const el = chart.querySelector('[data-id="'+id+'"]');
-    const s = el.closest(".satir");
-    if(s.classList.contains("kapali")){
-      const b = document.querySelector('.banner[aria-controls="'+s.id+'"]');
-      Ortak.bantDurum(b, s, false); ciz();
-    }
-    el.scrollIntoView({block:"center", inline:"center"});
-    el.focus();
+    kartaGit(id,false).focus({preventScroll:true});
     ac(id);
   }
   window.addEventListener("hashchange", hashAc);

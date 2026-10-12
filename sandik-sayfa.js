@@ -177,8 +177,35 @@
     panel: document.getElementById("panel"), perde: document.getElementById("perde"),
     govde: document.getElementById("p-govde"), kapatDugmesi: document.getElementById("kapat"),
     odakSecici: ".s-hk-ac, .s-ac",
-    kapaninca: () => history.replaceState(null, "", location.pathname + location.search)
+    kapaninca: () => history.replaceState(null, "", location.pathname + location.search),
+    // önceki / sonraki: sayfada görünen (süzgece takılmayan) kayıtlar, sayfadaki sırasıyla
+    gezinti: {
+      komsu(id, yon) {
+        const l = [...rows.querySelectorAll(".s-ac[data-id]")].filter(el => !el.closest("[hidden]"));
+        const i = l.findIndex(el => el.dataset.id === id), h = i < 0 ? null : l[i + yon];
+        return h ? { id: h.dataset.id, ad: kayitAdi(h.dataset.id) } : null;
+      },
+      git(id) {
+        const el = kaydaGit(id);
+        if (el) Panel.odakHedefi(el.querySelector(".s-hk-ac") || el);
+        ac(id);
+      }
+    }
   });
+  function kayitAdi(id) {
+    const h = S.hukumetler.find(x => M.hukumetId(x) === id);
+    if (h) return M.hukumetAdi(h) + (h.basbakan || h.baskan ? " · " + (h.basbakan || h.baskan) : "");
+    const k = S.secimler.find(x => x.id === id);
+    return k ? k.tarih.slice(0, 4) + " " + M.TUR_AD[k.tur] : id;
+  }
+  // kaydın dönemi kapalıysa açılır ve kayıt ekranın ortasına getirilir (pencerenin arkasında)
+  function kaydaGit(id) {
+    const el = rows.querySelector('[data-id="' + id + '"]'); if (!el) return null;
+    const donem = el.closest(".s-donem");
+    if (donem.classList.contains("kapali")) O.bantDurum(bantBul(donem), donem, false);
+    if (!el.closest("[hidden]")) kaydir(el, "center");
+    return el;
+  }
   /* il haritası verisi (≈345 KB) sayfanın ilk çiziminde gerekmez: sayfa çizildikten sonra arka planda
      yüklenir. Pencere ondan önce açılırsa haritanın yeri ayrılır, veri gelince doldurulur. */
   let V = null, H = null;
@@ -198,13 +225,13 @@
     const h = S.hukumetler.find(x => M.hukumetId(x) === id);
     if (h) {
       const p = M.hukumetPanelHTML(h, S);
-      Panel.ac(p.html, p.renk);
+      Panel.ac(p.html, p.renk, id);
       history.replaceState(null, "", "#" + id);
       return;
     }
     const k = S.secimler.find(x => x.id === id); if (!k) return;
     const p = M.panelHTML(k, S, { harita: haritaHTML(k) });
-    Panel.ac(p.html, p.renk);
+    Panel.ac(p.html, p.renk, id);
     history.replaceState(null, "", "#" + id);
     if (!V) haritaHazir.then(() => {
       const yer = document.querySelector('#p-govde .p-harita-yer[data-id="' + k.id + '"]');
@@ -237,13 +264,8 @@
   });
   function hashAc() {
     const id = O.hashOku(location.hash); if (!id) return;
-    const el = rows.querySelector('[data-id="' + id + '"]'); if (!el) return;
-    const donem = el.closest(".s-donem");
-    if (donem.classList.contains("kapali")) O.bantDurum(bantBul(donem), donem, false);
-    if (!el.hidden && !el.closest("[hidden]")) {
-      kaydir(el, "center");
-      (el.querySelector(".s-hk-ac") || el).focus({ preventScroll: true });
-    }
+    const el = kaydaGit(id); if (!el) return;
+    if (!el.closest("[hidden]")) (el.querySelector(".s-hk-ac") || el).focus({ preventScroll: true });
     ac(id);
   }
   window.addEventListener("hashchange", hashAc);
