@@ -55,5 +55,48 @@
 - [x] 10 parti dizini (liste görünümü, `a913121`)
 - [x] 6 harita gezinme ve renk geçişi; 5, 8, 11 geçişler, başa dön, dönem özetleri (`878373d`)
 - [x] Gözden geçirme düzeltmeleri: kapalı pencere gizli, arama kutusu 400px, kaynakça, esc, denetim aracı (`9f85929`)
-- [ ] 12 gereksiz kod taraması
-- [ ] 13 son denetim ve değişiklik listesi
+- [x] 12 gereksiz kod taraması (`13cbbad`) ve açılış hafifletme (`519ca05`)
+- [x] 13 son denetim (101 birim testi, `dogrula`, `site.js`, GitHub Actions yeşil) ve değişiklik listesi (aşağıda)
+
+## Sabah için değişiklik listesi
+
+Deneme sitesi: **https://emrebiltekin.me/soytest/** (arama motorlarına kapalı). Asıl siteye hiçbir şey gönderilmedi.
+
+**Her sayfada**
+1. **Hızlı arama** — üst menünün sağındaki büyüteç, ya da klavyede `/` veya `Ctrl+K`. Parti, genel başkan,
+   seçim ve hükümet aynı kutuda; "ozal" yazınca Özal da bulunur. Sonuca basınca ilgili sayfada penceresi açılır.
+   Bir grupta çok sonuç varsa "… sonuç daha" ile soyağacına ya da Sandık'a süzülmüş olarak gidilir.
+   Kutu boşken sayfalar, örnek aramalar ve klavye kısayolları görünür.
+2. **Pencerelerde önceki / sonraki** — pencerenin üstündeki ‹ › düğmeleri ya da ← → tuşları. Sandık'ta tarih
+   sırasıyla, soyağacında şemadaki ya da tablodaki sırayla gezer; arkadaki sayfa da o kayda kayar.
+3. **Bağlantıyı kopyala** — pencerenin üstünde; telefonda "paylaş" menüsünü açar.
+4. **Telefonda pencereyi aşağı çekerek kapatma** — alttan açılan pencerenin tutamağından.
+5. **Başa dön** düğmesi (uzun sayfalarda sağ altta) ve sayfalar arası yumuşak geçiş.
+
+**Soyağacı**
+6. **Yeni bölüm: liste görünümü** — "şema / liste" düğmesi. Bütün partiler tek tabloda: gelenek, yıllar, durum,
+   girdiği genel seçim sayısı, en yüksek oy oranı (yılıyla), yer aldığı hükümet sayısı. Başlığa basınca sıralanır;
+   arama, gelenek ve yıl süzgeçleri burada da çalışır. Sayılar yalnız sitedeki kayıtlardan hesaplanır, kaynakçada
+   nasıl hesaplandığı yazılı.
+7. Arama Sandık'taki gibi çalışıyor (Türkçe harf sadeleştirme, birden çok sözcük) ve eşleşen parti sayısını yazıyor.
+
+**Sandık**
+8. **Dönem özetleri** — her dönem bandının altında o dönemdeki seçim ve hükümet sayıları, hükümetlerin ortalama süresi.
+
+**Harita**
+9. ← → ile seçimler arasında gezinme; renkler yumuşakça değişiyor; dokunduğunuz il başka seçime geçince de
+   seçili kalıyor ve o ilin yeni sonucunu gösteriyor.
+
+**Düzeltmeler ve temizlik**
+10. Telefonda kapalı pencere ekranın altında beklemiyor; Sandık'taki arama kutusunun örnek yazısı artık kesilmiyor;
+    kaynakçadaki eski "?" ifadesi bugünkü davranışa göre düzeltildi.
+11. Kullanılmayan kod çıkarıldı (hiç çizilmeyen kart dalları, kimsenin kullanmadığı dışa aktarımlar, hiçbir yere
+    uymayan CSS kuralları, ikiye bölünmüş kurallar birleştirildi). Telefonda açılış hızı asıl siteyle aynı düzeyde.
+12. Site denetim aracı yeni özellikleri de deniyor (hızlı arama, liste görünümü, pencere gezinmesi).
+
+## Asıl siteye taşıma
+
+Her madde ayrı commit'tir; `afc7ee8` (noindex) **taşınmaz**. Hepsi onaylanırsa asıl depoda:
+`git fetch https://github.com/lizer20/soytest main` → `git diff afc7ee8 FETCH_HEAD -- . ':!docs/GOREV-SOYTEST.md' | git apply`
+(asıl depo `c0899a5`'te olduğu sürece temiz uygulanır). Yalnız bazı maddeler onaylanırsa ilgili commit'ler
+`git cherry-pick` ile tek tek alınır; sonra testler, `dogrula` ve `site.js` çalıştırılır.
