@@ -94,6 +94,9 @@ Deneme sitesi: **https://emrebiltekin.me/soytest/** (arama motorlarına kapalı)
     Sütun araları biraz açıldı, yıllar "1983–2009" biçiminde sıkıştırıldı ki kartlar daralmasın.
     Ölçümle doğrulandı: üç ekran genişliğinde, dönem kapalıyken de hiçbir çizgi parçası başka bir bağla örtüşmüyor
     ve hiçbir çizgi bir kartın içinden geçmiyor.
+14. Kullanıcının isteğiyle şeritlerin arası açıldı: şeritler arası 3,5 → 5 px, karta uzaklık 4,5 → 6 px (sütun arası
+    32 px, dış kenarlar 22 px). Kartlar daraldığı için şemadaki kartların iç boşluğu ve rozet harf aralığı biraz
+    azaltıldı; yıl ve rozet bütün kartlarda yine tek satırda. 1366–2560 px arası sekiz genişlikte çakışma yok.
 
 **Düzeltmeler ve temizlik**
 10. Telefonda kapalı pencere ekranın altında beklemiyor; Sandık'taki arama kutusunun örnek yazısı artık kesilmiyor;

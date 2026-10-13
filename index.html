@@ -60,14 +60,16 @@
   #chart{position:relative;min-width:1360px;max-width:1500px;margin:0 auto}
   #edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 
-  /* sütun araları ve iki dış kenar, bağ çizgilerinin şeritleridir (her sütunun iki yanında üçer şerit) */
+  /* sütun araları (32 px, beş şerit) ve iki dış kenar (22 px, üç şerit), bağ çizgilerinin şeritleridir */
   .satir{
-    display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 26px;padding:0 14px;
+    display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 32px;padding:0 22px;
     margin-bottom:26px;position:relative;z-index:1;
   }
   .hucre{display:flex;flex-direction:column;gap:12px}
 
-  #chart .kart{padding:9px 10px 10px}
+  /* kartlar şeritlere yer açmak için dar: yıl ve rozet tek satıra sığsın diye iç boşluk ve rozet harf aralığı az */
+  #chart .kart{padding:9px 9px 10px}
+  #chart .kart .rozet{letter-spacing:.04em}
   .kart .kisa{
     font-family:"Fraunces",serif;font-weight:700;font-size:16px;line-height:1.1;
     color:var(--aile);margin-bottom:2px;letter-spacing:-.01em;
@@ -329,7 +331,7 @@
   const SIRA={};   // sütun içindeki yukarıdan aşağı sıra (dönem, sonra hücre içi)
   for(let c=0;c<7;c++){ let i=0; DONEMLER.forEach((d,di)=>N.filter(n=>n.donem===di&&n.aile===c).forEach(n=>{SIRA[n.id]=i++;})); }
   const SVGNS="http://www.w3.org/2000/svg";
-  const SERIT_ILK=4.5, SERIT_ARA=3.5, KOSE=5;
+  const SERIT_ILK=6, SERIT_ARA=5, KOSE=5;   // şeridin karta uzaklığı, şeritler arası (32 px'lik arada 5 şerit)
   // dik açılı kırık çizgi; köşeler yuvarlatılır, aynı doğrultudaki ara noktalar atlanır
   function kirikYol(nk){
     const l=[];
@@ -383,7 +385,7 @@
     const ARALIK=[], W=chart.offsetWidth;
     for(let g=0;g<=7;g++){
       const x1=g===0?0:SX[g-1].x2, x2=g===7?W:SX[g].x1, yuva=[];
-      for(let x=x1+SERIT_ILK;x<=x2-SERIT_ILK+0.01;x+=SERIT_ARA) yuva.push({x, dolu:[]});
+      for(let x=x1+SERIT_ILK;x<=x2-SERIT_ILK+0.5;x+=SERIT_ARA) yuva.push({x, dolu:[]});
       ARALIK.push({orta:(x1+x2)/2, yuva});
     }
     function seritAl(c,yanlar,y1,y2){
