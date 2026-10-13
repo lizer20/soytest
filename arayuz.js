@@ -66,19 +66,20 @@
   const girdi = kutu.querySelector(".ha-girdi"), liste = kutu.querySelector(".ha-liste");
 
   /* ---- veri: sayfada yoksa yüklenir, dizin bir kez kurulur ---- */
-  let dizin = null, M = null, hazirlik = null;
-  function hazirla() {
-    if (hazirlik) return hazirlik;
+  let dizin = null, M = null, yukleme = null;
+  // dosyalar sayfa boşta kalınca ya da düğmeye yaklaşılınca yüklenir; dizin ilk açılışta kurulur
+  function dosyalariYukle() {
+    if (yukleme) return yukleme;
     const yukle = (sinama, src) => () => sinama() ? Promise.resolve() : O.betikYukle(src);
-    hazirlik = Promise.resolve()
+    yukleme = Promise.resolve()
       .then(yukle(() => window.PARTILER, "veri/partiler.js"))
       .then(yukle(() => window.SANDIK, "veri/sandik.js"))
       .then(yukle(() => window.GENEL_BASKANLAR, "veri/genel-baskanlar.js"))
-      .then(yukle(() => window.SandikMantik, "sandik-mantik.js"))
-      .then(dizinKur);
-    hazirlik.catch(() => { hazirlik = null; });
-    return hazirlik;
+      .then(yukle(() => window.SandikMantik, "sandik-mantik.js"));
+    yukleme.catch(() => { yukleme = null; });
+    return yukleme;
   }
+  function hazirla() { return dosyalariYukle().then(() => { if (!dizin) dizinKur(); }); }
   function dizinKur() {
     const P = window.PARTILER, S = window.SANDIK, GB = window.GENEL_BASKANLAR || {};
     M = window.SandikMantik.olustur(P, O);
@@ -251,8 +252,9 @@
     if ((e.key === "k" || e.key === "K") && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ac(); }
     else if (e.key === "/" && !yaziyor && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); ac(); }
   });
-  // arka planda, sayfa boşta kalınca veriyi hazırla: ilk açılış beklemesin
-  (window.requestIdleCallback || (f => setTimeout(f, 1500)))(() => hazirla().catch(() => {}));
+  // eksik veri dosyaları sayfa açıldıktan bir süre sonra boşta yüklenir; düğmeye gelinince hemen
+  setTimeout(() => (window.requestIdleCallback || (f => f()))(() => dosyalariYukle().catch(() => {})), 3000);
+  ["pointerenter", "focus", "touchstart"].forEach(t => dugme.addEventListener(t, () => dosyalariYukle().catch(() => {}), { once: true, passive: true }));
 
   /* ---- sayfa adresinde ?ara= varsa (hızlı aramadaki "sonuç daha" bağlantısı) sayfanın kendi arama kutusu doldurulur ---- */
   const q = new URLSearchParams(location.search).get("ara");

@@ -4,13 +4,17 @@ Derlemesiz, bağımlılıksız statik bir site: **https://emrebiltekin.me/soyaga
 
 - **Soyağacı** (`index.html`) — 1923'ten bugüne partilerin kuruluş, bölünme, katılma ve
   kapatılma çizgileri; dönem bantları, kesintiler; parti pencerelerinde kurucular, genel başkanlar,
-  girdiği seçimler ve haritada birinci çıktığı iller.
+  girdiği seçimler ve haritada birinci çıktığı iller. **Liste görünümü** (`index.html?gorunum=liste`)
+  bütün partileri sıralanabilir bir tabloda gösterir.
 - **Sandık** (`sandik.html`) — genel ve yerel seçimler, referandumlar, cumhurbaşkanlığı seçimleri,
   ara seçimler ve hükümetler; dönem bantlarında yıl yıl zaman çizelgesi, seçim pencerelerinde meclis
   çizimi, sonuç tablosu ve il haritası.
 - **Harita** (`harita.html`) — genel ve yerel seçimlerde il il kazanan parti, referandumlarda illerin
   evet/hayır oranı.
 - **Kaynakça & metodoloji** (`kaynakca.html`) — ölçüler, kurallar ve kaynaklar.
+
+Her sayfada üst menüdeki düğmeyle ya da `/` (Ctrl+K) tuşuyla açılan **hızlı arama** parti, genel
+başkan, seçim ve hükümetleri tek kutuda arar. Pencerelerde ← → ile önceki / sonraki kayda geçilir.
 
 ## Temel ilke: bilgi uydurulmaz
 
@@ -54,8 +58,8 @@ NODE_PATH=$(npm root -g) node araclar/denetim/site.js
    bilinmeyen parti referansları, hükümet zincirindeki boşluk ve çakışmalar, genel başkan listeleri.
 3. **Site denetimi** (Playwright gerekir; Chromium yolu `PW_CHROMIUM` ile verilebilir): dört sayfa
    masaüstü ve telefon genişliğinde açılır; konsol hataları, Sandık'ın bütün kayıt pencereleri,
-   bütün parti pencereleri ve bütün harita tablolarında değer yerine yazılmış "—"/"?", sayfalardaki
-   ve pencerelerdeki iç bağlantılar denetlenir. `EKRAN=klasör` verilirse ekran görüntüleri alınır.
+   bütün parti pencereleri, liste görünümü ve bütün harita tablolarında değer yerine yazılmış "—"/"?",
+   sayfalardaki ve pencerelerdeki iç bağlantılar, hızlı arama ve pencere gezinmesi denetlenir. `EKRAN=klasör` verilirse ekran görüntüleri alınır.
 
 Üçü de her gönderimde GitHub Actions'ta çalışır (`.github/workflows/denetim.yml`).
 
@@ -64,7 +68,8 @@ NODE_PATH=$(npm root -g) node araclar/denetim/site.js
 | Yol | İş |
 |---|---|
 | `index.html`, `sandik.html`, `harita.html`, `kaynakca.html` | Sayfalar |
-| `ortak.js`, `ortak.css` | Ortak bileşenler: panel, dönem bandı, biçimleme, sonradan yükleme; gömülü yazı tipleri |
+| `ortak.js`, `ortak.css` | Ortak bileşenler: panel (önceki / sonraki, bağlantı, telefonda aşağı çekip kapatma), dönem bandı, biçimleme, sonradan yükleme; gömülü yazı tipleri |
+| `arayuz.js` | Bütün sayfalarda: hızlı arama ve başa dön düğmesi |
 | `sandik-mantik.js`, `sandik-sayfa.js`, `sandik.css` | Sandık bölümünün mantığı ve görünümü |
 | `harita-mantik.js`, `harita-sayfa.js`, `harita.css` | Harita sayfası ve pencerelerdeki küçük harita |
 | `veri/partiler.js` | Soyağacı verisi (`window.PARTILER`) |
