@@ -370,14 +370,8 @@
               return "<li><b>" + kacis(a.ad) + "</b>" + (y != null ? "<span>" + O.yuzdeYaz(y) + "</span>" : "") + "</li>";
             }).join("") + "</ol></div>";
         }).join("");
-      } else if (k.tur === "cb-tbmm") {
-        govde = '<div class="s-tek">' + (k.secilen ? kacis(k.secilen) + " seçildi" : "sonuçsuz") +
-          (k.turSayisi != null ? " · " + k.turSayisi + " tur" : "") + "</div>";
-      } else if (k.tur === "ara") {
-        govde = '<div class="s-tek">' + araOzeti(k) + "</div>";
       }
-      const tek = k.tur === "cb-tbmm" || k.tur === "ara" ? " s-kucuk" : "";
-      return '<div class="kart s-kart s-ac s-' + k.tur + tek + '" data-id="' + k.id + '" tabindex="0" role="button" style="--aile:' +
+      return '<div class="kart s-kart s-ac s-' + k.tur + '" data-id="' + k.id + '" tabindex="0" role="button" style="--aile:' +
         kartRengi(k) + '">' + ustHTML(k) + govde + "</div>";
     }
     function araOzeti(k) {
@@ -764,10 +758,10 @@
         O.sayiYaz(x.il) + " il" + (x.kayit.tur === "yerel" ? " (il merkezi)" : "") + "</span></li>"));
     }
 
-    return { BAGIMSIZ, DIGER, NOTR, KESINTI, TUR_ETIKET, TUR_AD, BITIS_ETIKET,
+    return { NOTR, KESINTI, TUR_AD,
              partiAdi, oyDegeri, katilimDegeri, siralaGenel, baslikGenel, meclisDurumu, kartRengi, hukumetRengi, baskanYili,
              donemBul, kronoloji, sonrakiHukumetler, partininSecimleri,
-             kacis, rozetHTML, genelBaskanlarHTML, cubukHTML, meclisGruplari, meclisSVG, kartHTML, panelHTML, kunyeSecimleriHTML,
+             kacis, genelBaskanlarHTML, cubukHTML, meclisGruplari, meclisSVG, kartHTML, panelHTML, kunyeSecimleriHTML,
              kartMi, genisKartMi, yilGruplari, olayHTML, hukumetSatiriHTML, hukumetId, hukumetAdi, hukumetPanelHTML,
              sure, sureYaz, gunYaz, partiHukumetleriHTML, dizinSatiri, donemOzeti, aramaNormal, aramaMetni, aramaEslesir,
              birinciIller, haritaKunyeHTML, yilEki };

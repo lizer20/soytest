@@ -1,7 +1,7 @@
 /* Harita sayfası ve Sandık panelindeki küçük harita. Ortak bileşenler ortak.css'te. */
 :root{--h-bos:#ECECE6;--h-yok:#E4E5DC;--h-cizgi:#B9BCAE}
 .h-harita{display:block;width:100%;height:auto}
-.h-harita .h-il{stroke:#F5F5F0;stroke-width:.6;stroke-linejoin:round;transition:opacity .15s,fill .35s ease}
+.h-harita .h-il{stroke:#F5F5F0;stroke-width:.6;stroke-linejoin:round;cursor:pointer;transition:opacity .15s,fill .35s ease}
 .h-harita .h-bilinmiyor{stroke:var(--cizgi)}
 @media (hover:hover){
   .h-harita:hover .h-il{opacity:.55}
@@ -51,7 +51,6 @@
   background:rgba(21,24,16,.04);border-left:3px solid var(--cizgi)}
 .h-secili:empty{display:none}
 .h-harita .h-il.h-secik{stroke:var(--murekkep);stroke-width:1.6;opacity:1}
-.h-harita .h-il{cursor:pointer}
 @media (max-width:560px){
   .h-secim select{min-height:38px}
   .h-secim button{min-width:38px;min-height:38px}

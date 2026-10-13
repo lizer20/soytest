@@ -188,7 +188,7 @@
           (sonrakiVar ? "<td>" + x.sonraki + "</td>" : "") + (payVar ? "<td>" + x.pay + "</td>" : "") + "</tr>").join("") + "</tbody></table>";
     }
 
-    return { ilBul, iller, renkler, karistir, ipucu, haritaSVG, lejantHTML, tabloHTML, referandumOzetHTML };
+    return { ilBul, iller, renkler, ipucu, haritaSVG, lejantHTML, tabloHTML, referandumOzetHTML };
   }
   return { olustur };
 });
