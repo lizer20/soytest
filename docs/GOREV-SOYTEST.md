@@ -87,6 +87,14 @@ Deneme sitesi: **https://emrebiltekin.me/soytest/** (arama motorlarına kapalı)
 9. ← → ile seçimler arasında gezinme; renkler yumuşakça değişiyor; dokunduğunuz il başka seçime geçince de
    seçili kalıyor ve o ilin yeni sonucunu gösteriyor.
 
+**Soyağacı şemasındaki çizgiler (kullanıcının sonradan istediği, 13 Ekim)**
+13. Çizgiler artık kartların arkasından geçmiyor ve birbirinin üstüne binmiyor: hemen alttaki partiye giden bağ düz
+    iniyor; aradan kart atlayan bağ sütunun yanındaki kendi şeridinden ilerliyor; sütun değiştiren bağ dönem
+    aralarından yatay geçiyor. Her çizgi vardığı partinin kenarında bir noktayla bitiyor (lejantta açıklandı).
+    Sütun araları biraz açıldı, yıllar "1983–2009" biçiminde sıkıştırıldı ki kartlar daralmasın.
+    Ölçümle doğrulandı: üç ekran genişliğinde, dönem kapalıyken de hiçbir çizgi parçası başka bir bağla örtüşmüyor
+    ve hiçbir çizgi bir kartın içinden geçmiyor.
+
 **Düzeltmeler ve temizlik**
 10. Telefonda kapalı pencere ekranın altında beklemiyor; Sandık'taki arama kutusunun örnek yazısı artık kesilmiyor;
     kaynakçadaki eski "?" ifadesi bugünkü davranışa göre düzeltildi.

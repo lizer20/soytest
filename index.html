@@ -44,6 +44,7 @@
     font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--soluk);
   }
   .lejant2 span{display:flex;align-items:center;gap:7px}
+  .lejant2 svg{flex:none;color:var(--soluk)}
   .swatch{width:26px;height:0;border-top:2px solid var(--soluk);flex:none}
   .swatch.kesik{border-top-style:dashed}
   .swatch.nokta{border-top-style:dotted}
@@ -59,12 +60,14 @@
   #chart{position:relative;min-width:1360px;max-width:1500px;margin:0 auto}
   #edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 
+  /* sütun araları ve iki dış kenar, bağ çizgilerinin şeritleridir (her sütunun iki yanında üçer şerit) */
   .satir{
-    display:grid;grid-template-columns:repeat(7,1fr);gap:0 12px;
+    display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 26px;padding:0 14px;
     margin-bottom:26px;position:relative;z-index:1;
   }
   .hucre{display:flex;flex-direction:column;gap:12px}
 
+  #chart .kart{padding:9px 10px 10px}
   .kart .kisa{
     font-family:"Fraunces",serif;font-weight:700;font-size:16px;line-height:1.1;
     color:var(--aile);margin-bottom:2px;letter-spacing:-.01em;
@@ -97,11 +100,17 @@
   #chart.filtreli .kart{opacity:.2}
   #chart.filtreli .kart.sonuc{opacity:1}
 
-  path.kenar{fill:none;stroke-width:1.6;opacity:.5;transition:opacity .18s,stroke-width .18s}
-  path.kenar.bolunme{stroke-dasharray:6 4}
-  path.kenar.katilma{stroke-dasharray:2 4;stroke-width:2}
-  #chart.odak path.kenar{opacity:.07}
-  #chart.odak path.kenar.aktif{opacity:1;stroke-width:2.6}
+  /* bağlar: aynı şeridi paylaşan bağlar bir demette çizilir (üst üste binen kısımları koyulaşmasın diye
+     saydamlık demete verilir); her bağın ucu hedef kartın kenarında bir noktadır */
+  #edges .demet{opacity:.62;transition:opacity .18s}
+  #edges .kenar{transition:opacity .18s}
+  #edges .kenar path{fill:none;stroke-width:1.6;stroke-linejoin:round;transition:stroke-width .18s}
+  #edges .kenar.bolunme path{stroke-dasharray:6 4}
+  #edges .kenar.katilma path{stroke-dasharray:2 3.5;stroke-width:1.8}
+  #chart.odak #edges .demet{opacity:1}
+  #chart.odak #edges .kenar{opacity:.07}
+  #chart.odak #edges .kenar.aktif{opacity:1}
+  #chart.odak #edges .kenar.aktif path{stroke-width:2.4}
 
   /* liste görünümü: parti dizini */
   .gorunum .tur-dugme{min-width:58px}
@@ -149,7 +158,7 @@
     #chart{min-width:0;max-width:100%}
     #edges{display:none}
 
-    .satir{display:flex;flex-direction:column;gap:10px}
+    .satir{display:flex;flex-direction:column;gap:10px;padding:0}
     .hucre:empty{display:none}
 
     /* telefonda tablo yatay kayar, parti sütunu solda sabit kalır; gelenek rengi kenarda */
@@ -186,6 +195,7 @@
     <span><i class="swatch"></i> doğrudan devam / isim değişikliği</span>
     <span><i class="swatch kesik"></i> bölünme, ayrılan kadro</span>
     <span><i class="swatch nokta"></i> katılma / birleşme</span>
+    <span><svg width="26" height="8" aria-hidden="true"><line x1="0" y1="4" x2="21" y2="4" stroke="currentColor" stroke-width="1.6"/><circle cx="21.5" cy="4" r="2.6" fill="currentColor"/></svg> çizginin vardığı parti</span>
   </div>
 
   <div class="araclar">
@@ -222,6 +232,9 @@
   </aside>
 
   <footer>
+    <p><b>Çizgiler.</b> Bağlar kartların arkasından geçmez: hemen alttaki partiye giden bağ düz iner, aradan başka
+      kartlar atlayan bağ sütunun yanındaki kendi şeridinden ilerler, sütun değiştiren bağ dönem aralarından yatay geçer.
+      Her çizgi vardığı partinin kenarında bir noktayla biter; bir kartın üstüne gelince yalnız onun bağları öne çıkar.</p>
     <p><b>Okuma notu.</b> Şema kurucu tarihe göre dizilmiştir; bir parti kurulduğu dönem bandında görünür, faaliyeti sonraki yıllara uzasa da. 12 Eylül 1980'de parti faaliyetleri yasaklandı, hukuki fesih ise 16 Ekim 1981'de gerçekleşti — bu yüzden o dönemin kartlarında bitiş yılı 1981'dir. Mal varlıkları Hazine'ye devredildiği için 1983 bandı neredeyse tümüyle sıfırdan kuruluşlardan oluşur.</p>
     <p><b>Yeni Yol hakkında.</b> Şemadaki tek "çatı parti". TBMM İçtüzüğü grup kurmak için tek bir partiden en az 20 milletvekili şartı aradığından, Saadet, Gelecek ve DEVA 2025'te ortak bir tüzel kişilik kurdu. Üç parti örgütlerini, programlarını ve genel başkanlarını korudu; bu yüzden şemada birleşme değil, üç ayrı noktalı bağla gösteriliyor.</p>
     <p><b>Sınıflandırma.</b> Sütunlar ideolojik çizgiye göre ayrılmıştır. Sosyalist sol (TİP, TKP, ÖDP, EMEP çizgisi) ile radikal sol (HEP'ten DEM Parti'ye uzanan hat) ayrı tutuldu; ikisi de solda yer alsa da aralarında örgütsel devir ilişkisi yok, iki bağımsız zincir oluşturuyorlar.</p>
@@ -297,7 +310,7 @@
     el.innerHTML =
       '<div class="kisa">'+n.kisa+'</div>'+
       '<div class="ad">'+n.ad+'</div>'+
-      '<div class="yil">'+n.yil+' <span class="rozet '+r[1]+'">'+r[0]+'</span></div>'+
+      '<div class="yil">'+n.yil.replace(/\s–\s?/,"–")+' <span class="rozet '+r[1]+'">'+r[0]+'</span></div>'+
       (n.sembol?'<div class="sembol">sembol · <b>'+n.sembol+'</b></div>':'')+
       (n.not?'<div class="not">'+n.not+'</div>':'');
     return el;
@@ -307,39 +320,157 @@
   const svg=document.getElementById("edges");
   const yol={};
 
+  /* ---- bağ çizimi. Çizgiler kartların arkasından geçmez:
+     · aynı sütunda hemen alttaki karta giden bağ düz iner;
+     · aynı sütunda arada kart varsa bağ sütunun yanındaki bir şeritten iner ve hedef kartın kenarına bağlanır;
+       aynı kaynaktan aynı türde çıkan bağlar (yukarı giden katılmalarda aynı hedefe varanlar) bir şeridi paylaşır;
+     · sütun değiştiren bağ şeritten dönem altındaki boşluğa iner, oradan yatay geçip hedef sütunun şeridine girer.
+     Şeritler, üst üste binmesinler diye aralık boyama ile dağıtılır. ---- */
+  const SIRA={};   // sütun içindeki yukarıdan aşağı sıra (dönem, sonra hücre içi)
+  for(let c=0;c<7;c++){ let i=0; DONEMLER.forEach((d,di)=>N.filter(n=>n.donem===di&&n.aile===c).forEach(n=>{SIRA[n.id]=i++;})); }
+  const SVGNS="http://www.w3.org/2000/svg";
+  const SERIT_ILK=4.5, SERIT_ARA=3.5, KOSE=5;
+  // dik açılı kırık çizgi; köşeler yuvarlatılır, aynı doğrultudaki ara noktalar atlanır
+  function kirikYol(nk){
+    const l=[];
+    nk.forEach(n=>{
+      const s=l[l.length-1]; if(s&&s[0]===n[0]&&s[1]===n[1]) return;
+      const o=l[l.length-2];
+      if(s&&o&&((o[0]===s[0]&&s[0]===n[0])||(o[1]===s[1]&&s[1]===n[1]))) l[l.length-1]=n; else l.push(n);
+    });
+    let d="M "+l[0][0].toFixed(1)+" "+l[0][1].toFixed(1);
+    for(let i=1;i<l.length-1;i++){
+      const [x0,y0]=l[i-1],[x1,y1]=l[i],[x2,y2]=l[i+1];
+      const r=Math.min(KOSE,Math.hypot(x1-x0,y1-y0)/2,Math.hypot(x2-x1,y2-y1)/2);
+      d+=" L "+(x1-Math.sign(x1-x0)*r).toFixed(1)+" "+(y1-Math.sign(y1-y0)*r).toFixed(1)+
+         " Q "+x1.toFixed(1)+" "+y1.toFixed(1)+" "+(x1+Math.sign(x2-x1)*r).toFixed(1)+" "+(y1+Math.sign(y2-y1)*r).toFixed(1);
+    }
+    const s=l[l.length-1];
+    return d+" L "+s[0].toFixed(1)+" "+s[1].toFixed(1);
+  }
   function ciz(){
     svg.innerHTML="";
     const cb=chart.getBoundingClientRect();
     svg.setAttribute("viewBox","0 0 "+chart.offsetWidth+" "+chart.offsetHeight);
     for(const k in yol) delete yol[k];
+    if(getComputedStyle(svg).display==="none") return;   // telefonda bağlar çizilmez
+    // görünür kartların kutuları ve sütun sınırları (şema koordinatlarında); kapalı dönemdeki kart ölçülemez
+    const K={};
+    chart.querySelectorAll(".kart").forEach(el=>{
+      if(el.offsetParent===null) return;
+      const r=el.getBoundingClientRect();
+      K[el.dataset.id]={x1:r.left-cb.left, x2:r.right-cb.left, y1:r.top-cb.top, y2:r.bottom-cb.top};
+    });
+    const satir=[...chart.querySelectorAll(".satir")].find(x=>x.offsetParent!==null);
+    if(!satir) return;
+    const SX=[...satir.children].map(h=>{ const r=h.getBoundingClientRect(); return {x1:r.left-cb.left, x2:r.right-cb.left}; });
+    // dönem altındaki yatay geçit: satırın altındaki boşluğun ortası
+    const GECIT={};
+    chart.querySelectorAll(".satir").forEach(x=>{
+      if(x.offsetParent===null) return;
+      GECIT[+x.id.replace("donem-","")]=x.getBoundingClientRect().bottom-cb.top+13;
+    });
+    const nb=id=>N.find(n=>n.id===id);
+    // bir karta bağlanan her bağ kartın kenarında ayrı bir yükseklikte durur: girişler başlığın hizasından
+    // aşağı, çıkışlar kartın altından yukarı doğru 6 px arayla dizilir
+    const ustSay={}, altSay={};
+    const ustY=id=>K[id].y1+16+6*(ustSay[id]=(ustSay[id]||0)+1)-6;
+    const altY=id=>K[id].y2-10-6*(altSay[id]=(altSay[id]||0)+1)+6;
 
+    // şerit yuvaları: her sütun arası (ve iki dış kenar) eşit aralıklı yuvalara bölünür; komşu iki sütun aynı
+    // yuvaları paylaşır, böylece iki şerit aynı yerde aynı yükseklikte hiç buluşmaz. Sütunun sağındaki aralıkta
+    // yuvalar soldan, solundakinde sağdan doldurulur; önce sütunun kendi yarısı, gerekirse aralığın tamamı.
+    const ARALIK=[], W=chart.offsetWidth;
+    for(let g=0;g<=7;g++){
+      const x1=g===0?0:SX[g-1].x2, x2=g===7?W:SX[g].x1, yuva=[];
+      for(let x=x1+SERIT_ILK;x<=x2-SERIT_ILK+0.01;x+=SERIT_ARA) yuva.push({x, dolu:[]});
+      ARALIK.push({orta:(x1+x2)/2, yuva});
+    }
+    function seritAl(c,yanlar,y1,y2){
+      const bos=y=>!y.dolu.some(([p,q])=>p<y2+6&&y1<q+6);
+      for(const tum of [false,true]) for(const yan of yanlar){
+        const a=ARALIK[yan==="R"?c+1:c], sira=yan==="R"?a.yuva:a.yuva.slice().reverse();
+        const y=sira.find(y=>(tum||(yan==="R"?y.x<=a.orta:y.x>=a.orta))&&bos(y));
+        if(y){ y.dolu.push([y1,y2]); return {yan, x:y.x}; }
+      }
+      // hiç boş yuva yoksa (şimdiki veride olmuyor) ilk yanın en yakın yuvası
+      const a=ARALIK[yanlar[0]==="R"?c+1:c], y=yanlar[0]==="R"?a.yuva[0]:a.yuva[a.yuva.length-1];
+      if(!y) return {yan:yanlar[0], x:a.orta};
+      y.dolu.push([y1,y2]); return {yan:yanlar[0], x:y.x};
+    }
+    const kenarX=(kutu,yan)=> yan==="L" ? kutu.x1 : kutu.x2;
+
+    // bağları sınıfla
+    const duz=[], gruplar={}, capraz=[], CY=new Map(), GECIT_IZ={};
     E.forEach(e=>{
-      const a=chart.querySelector('[data-id="'+e[0]+'"]');
-      const b=chart.querySelector('[data-id="'+e[1]+'"]');
-      if(!a||!b) return;
-      // kapalı dönemdeki kart ölçülemez; ucu görünmeyen bağı hiç çizme
-      if(a.offsetParent===null||b.offsetParent===null) return;
-      const ra=a.getBoundingClientRect(), rb=b.getBoundingClientRect();
-      const ax=ra.left-cb.left+ra.width/2, bx=rb.left-cb.left+rb.width/2;
+      const A=K[e[0]], B=K[e[1]]; if(!A||!B) return;
+      const a=nb(e[0]), b=nb(e[1]);
+      if(a.aile===b.aile){
+        const fark=SIRA[b.id]-SIRA[a.id];
+        if(Math.abs(fark)===1){ duz.push(e); return; }
+        const anahtar = fark>0 ? "a|"+e[0]+"|"+e[2] : "y|"+e[1]+"|"+e[2];
+        let g=gruplar[anahtar];
+        if(!g){ const kok=fark>0?e[0]:e[1];
+          g=gruplar[anahtar]={c:a.aile, yukari:fark<0, kok:K[kok], y1:fark>0?altY(kok):ustY(kok), bag:[], uc:new Map()}; }
+        g.bag.push(e);
+        g.uc.set(e, ustY(fark>0?e[1]:e[0]));   // öbür ucun kenardaki yüksekliği
+      } else capraz.push(e);
+    });
+    // şeritleri yukarıdan aşağı ayır (aralık boyama)
+    const istek=[];
+    Object.values(gruplar).forEach(g=>{
+      g.y2 = Math.max(...g.uc.values());
+      // önce sağ yan: kartın sağ kenarı renksizdir, şerit kartın renkli sol şeridiyle karışmaz
+      istek.push({y:g.y1, isle:()=>{ g.s=seritAl(g.c,["R","L"],g.y1,g.y2); }});
+    });
+    capraz.forEach(e=>{
+      const a=nb(e[0]), b=nb(e[1]), A=K[e[0]], B=K[e[1]];
+      // geçitte yatay kısımları çakışan bağlar ayrı izlere (geçidin ortası, 4 px yukarı, 4 px aşağı…) yerleşir
+      const gi=Math.min(a.donem,b.donem), gx1=SX[Math.min(a.aile,b.aile)].x1-26, gx2=SX[Math.max(a.aile,b.aile)].x2+26;
+      const izler=GECIT_IZ[gi]=GECIT_IZ[gi]||[];
+      let iz=0; while(izler[iz]&&izler[iz].some(([p,q])=>p<gx2&&gx1<q)) iz++;
+      (izler[iz]=izler[iz]||[]).push([gx1,gx2]);
+      const gy=GECIT[gi]+[0,-4,4,-8,8][Math.min(iz,4)];
+      const sag=b.aile>a.aile, y={gy, ay:altY(e[0]), by:ustY(e[1])};
+      CY.set(e,y);
+      istek.push({y:Math.min(y.ay,gy), isle:()=>{
+        // önce karşıya bakan yan; o aralık doluysa öbür yan (geçit yatay olduğu için iki yan da varır)
+        y.sa=seritAl(a.aile, sag?["R","L"]:["L","R"], Math.min(y.ay,gy), Math.max(y.ay,gy));
+        y.sb=seritAl(b.aile, sag?["L","R"]:["R","L"], Math.min(y.by,gy), Math.max(y.by,gy));
+      }});
+    });
+    istek.sort((x,y)=>x.y-y.y).forEach(x=>x.isle());
 
-      let ay,by;
-      if(rb.top>=ra.bottom-4){ ay=ra.bottom-cb.top; by=rb.top-cb.top; }
-      else if(rb.bottom<=ra.top+4){ ay=ra.top-cb.top; by=rb.bottom-cb.top; }
-      else { ay=ra.top-cb.top+ra.height/2; by=rb.top-cb.top+rb.height/2; }
-
-      const dy=(by-ay);
-      const c=Math.max(28,Math.min(90,Math.abs(dy)*0.55));
-      const d="M "+ax+" "+ay+" C "+ax+" "+(ay+Math.sign(dy||1)*c)+", "+bx+" "+(by-Math.sign(dy||1)*c)+", "+bx+" "+by;
-
-      const p=document.createElementNS("http://www.w3.org/2000/svg","path");
-      p.setAttribute("d",d);
-      p.setAttribute("class","kenar "+e[2]);
-      const kaynak=N.find(n=>n.id===e[0]);
-      p.setAttribute("stroke",AILE[kaynak?kaynak.aile:0].ham);
-      svg.appendChild(p);
-
-      (yol[e[0]]=yol[e[0]]||[]).push({p:p,other:e[1]});
-      (yol[e[1]]=yol[e[1]]||[]).push({p:p,other:e[0]});
+    // çizim
+    function bagCiz(demet,e,noktalar,ucBasta){
+      const kaynak=nb(e[0]), renk=AILE[kaynak.aile].ham;
+      const g=document.createElementNS(SVGNS,"g"); g.setAttribute("class","kenar "+e[2]);
+      const p=document.createElementNS(SVGNS,"path");
+      p.setAttribute("d",kirikYol(noktalar)); p.setAttribute("stroke",renk);
+      const uc=noktalar[ucBasta?0:noktalar.length-1], u=document.createElementNS(SVGNS,"circle");
+      u.setAttribute("cx",uc[0]); u.setAttribute("cy",uc[1]); u.setAttribute("r",2.6); u.setAttribute("fill",renk);
+      g.appendChild(p); g.appendChild(u); demet.appendChild(g);
+      (yol[e[0]]=yol[e[0]]||[]).push({p:g,other:e[1]});
+      (yol[e[1]]=yol[e[1]]||[]).push({p:g,other:e[0]});
+    }
+    const yeniDemet=()=>{ const d=document.createElementNS(SVGNS,"g"); d.setAttribute("class","demet"); svg.appendChild(d); return d; };
+    duz.forEach(e=>{
+      const A=K[e[0]], B=K[e[1]], x=(A.x1+A.x2)/2;
+      bagCiz(yeniDemet(), e, B.y1>A.y1 ? [[x,A.y2],[x,B.y1]] : [[x,A.y1],[x,B.y2]]);
+    });
+    Object.values(gruplar).forEach(g=>{
+      const d=yeniDemet(), x=g.s.x, kx=kenarX(g.kok,g.s.yan);
+      g.bag.forEach(e=>{
+        // yol, demetin ortak ucundan başlar ki kesik çizgilerin desenleri ortak kısımda örtüşsün
+        const u=K[g.yukari?e[0]:e[1]], uy=g.uc.get(e);
+        // yukarı giden katılmada yol hedeften başlar, uç noktası hedeftedir
+        bagCiz(d, e, [[kx,g.y1],[x,g.y1],[x,uy],[kenarX(u,g.s.yan),uy]], g.yukari);
+      });
+    });
+    capraz.forEach(e=>{
+      const a=nb(e[0]), b=nb(e[1]), A=K[e[0]], B=K[e[1]], y=CY.get(e);
+      const xa=y.sa.x, xb=y.sb.x;
+      bagCiz(yeniDemet(), e, [[kenarX(A,y.sa.yan),y.ay],[xa,y.ay],[xa,y.gy],[xb,y.gy],[xb,y.by],[kenarX(B,y.sb.yan),y.by]]);
     });
   }
 
